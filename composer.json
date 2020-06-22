@@ -18,6 +18,7 @@
         "spatie/laravel-permission": "^3.3"
     },
     "require-dev": {
+        "beyondcode/laravel-er-diagram-generator": "^1.4",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
