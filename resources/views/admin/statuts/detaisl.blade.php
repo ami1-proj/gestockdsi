@@ -1,0 +1,1 @@
+detaisl.blade.php

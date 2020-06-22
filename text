@@ -1,0 +1,21 @@
+ <table width="100%" style="border-collapse: collapse; border: 0px;">
+        <tr>
+        <th style="border: 1px solid; padding:12px;" width="15%">#</th>
+        <th style="border: 1px solid; padding:12px;" width="15%">Objet</th>
+        <th style="border: 1px solid; padding:12px;" width="15%">Type Bénéficiaire</th>
+        <th style="border: 1px solid; padding:12px;" width="15%">Bénéficiaire</th>
+        </tr>';
+      foreach($data as $data_row) {
+        $output.= '
+        
+
+          <tr>
+          <td style="border: 1px solid; padding:12px;">'.$data_row->id.'</td>
+          <td style="border: 1px solid; padding:12px;">'.$data_row->objet.'</td>
+          <td style="border: 1px solid; padding:12px;">'.$data_row->typeAffectation->tags.'</td>
+          <td style="border: 1px solid; padding:12px;">'.$data_row->beneficiaire->denomination.'</td>
+          </tr>';
+      }
+      $output.='</table>';
+      return $output;
+    }

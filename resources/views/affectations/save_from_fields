@@ -1,0 +1,12 @@
+<div class="form-group row {{ $errors->has('type_mouvement_id') ? 'has-error' : '' }}">
+    <label class="col-sm-2 col-form-label" for="type_mouvement_id">Type Mouvement</label>
+    <div class="col-sm-10">
+        <select name="type_mouvement_id" class="form-control" id="type_mouvement_id" required>
+            <option selected disabled>Selectionnez un type de Mouvement</option>
+            @foreach($type_mouvements as $id => $display)
+                <option value="{{ $id }}">{{ $display }}</option>
+            @endforeach
+        </select>
+        <small class="text-danger">{{ $errors->has('type_mouvement_id') ? $errors->first('type_mouvement_id') : '' }}</small>
+    </div>
+</div>
