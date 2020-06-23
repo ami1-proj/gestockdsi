@@ -16,7 +16,7 @@ trait LdapConnectTrait {
       {
           if (ldap_set_option($ad_conn, LDAP_OPT_PROTOCOL_VERSION, 3)) 
           {
-            if (ldap_set_option($adconn, LDAP_OPT_REFERRALS, 0)) 
+            if (ldap_set_option($ad_conn, LDAP_OPT_REFERRALS, 0)) 
             {
               return [$ad_conn,"connection LDAP réussie"];
             }
@@ -78,10 +78,14 @@ trait LdapConnectTrait {
       $ldapuser = 'jngom'; 
       $ldappass = 'P@rfait1283';
       $ldaptree = config('app.ldap_tree');
+      
+      //$ad_conn = $this->ldapconnect();
+      $ad_host = config('app.ldap_host');
+      $ldapconn = ldap_connect($ad_host);
 
-     if ($ad_conn[0]) {
+     if ($ldapconn) {
         // tentative de bind au serveur ldap
-          $ldapbind = ldap_bind($ad_conn[0], $ldapuser, $ldappass);
+          $ldapbind = ldap_bind($ldapconn, $ldapuser, $ldappass);
 
           if ($ldapbind) {
             $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
