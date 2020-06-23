@@ -21,6 +21,7 @@ return [
     'ldap_host' => env('LDAP_HOST', '192.16.5.62'),
     'ldap_domain' => env('LDAP_DOMAIN', '@gabontelecom.ga'),
     'ldap_base_dn' => env('LDAP_BASE_DN', 'DC=gabontelecom, DC=ga'),
+    'ldap_tree' => env('LDAP_TREE', 'DC=gabontelecom, DC=ga'),
 
 
     /*

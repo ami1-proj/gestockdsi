@@ -16,7 +16,7 @@ trait LdapConnectTrait {
       {
           if (ldap_set_option($ad_conn, LDAP_OPT_PROTOCOL_VERSION, 3)) 
           {
-            if (ldap_set_option($adConn, LDAP_OPT_REFERRALS, 0)) 
+            if (ldap_set_option($adconn, LDAP_OPT_REFERRALS, 0)) 
             {
               return [$ad_conn,"connection LDAP réussie"];
             }
@@ -57,10 +57,10 @@ trait LdapConnectTrait {
 
     }
 
-    public function ldapGetUsers()
+    public function ldapGetUsersold()
     {
         $ad_conn = $this->ldapconnect();
-
+        $person = "";
         $dn = "o=My Company, c=US";
         $filter="(|(sn=$person*)(givenname=$person*))";
         $justthese = array("ou", "sn", "givenname", "mail");
@@ -71,5 +71,38 @@ trait LdapConnectTrait {
         }
 
         dd($ad_conn,$sr,$info);
+    }
+
+    public function ldapGetUsers()
+    {
+      $ldapuser = 'jngom'; 
+      $ldappass = 'P@rfait1283';
+      $ldaptree = config('app.ldap_tree');
+
+     if ($ad_conn[0]) {
+        // tentative de bind au serveur ldap
+          $ldapbind = ldap_bind($ad_conn[0], $ldapuser, $ldappass);
+
+          if ($ldapbind) {
+            $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
+            if ( $result ){
+              $data = ldap_get_entries($ldapconn, $result);
+              dd($data);
+            } else { 
+              // échec résultat
+              return [$ldapbind,"erreur !"];
+            }
+          } else {
+            // échec bind
+            return [$ldapbind,"echec bind !"]; 
+          } 
+
+     } else {
+        return $ad_conn;
+     }
+
+
+
+
     }
 }
