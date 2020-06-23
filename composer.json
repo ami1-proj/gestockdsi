@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-ldap": "*",
+        "adldap2/adldap2-laravel": "^6.1",
         "barryvdh/laravel-dompdf": "^0.8.5",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "fideloper/proxy": "^4.0",

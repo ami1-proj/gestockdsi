@@ -2,7 +2,11 @@
 
 namespace App\LdapCustom;
 
+use Adldap\Laravel\Facades\Adldap;
+
 trait LdapConnectTrait {
+
+    use Adldap;
 
   public function ldapconnect()
   {
@@ -45,7 +49,7 @@ trait LdapConnectTrait {
       $ad_conn = $this->ldapconnect();
 
       if ($ad_conn[0]) {
-        $auth_ad_with_user = @ldap_bind($ad_conn, $user, $password);
+        $auth_ad_with_user = @ldap_bind($ad_conn[0], $user, $password);
         if ($auth_ad_with_user)
         {
           return [$ad_conn[0],$auth_ad_with_user,"succes authentification !"];
@@ -66,7 +70,7 @@ trait LdapConnectTrait {
 
         $ldapbind = $this->ldapauthenticate($ldapuser, $ldappass);
 
-        if ($ldapbind) {
+        if ($ldapbind[1]) {
             $result = ldap_search($ldapbind[0],$ldaptree, "(cn=*)");
             if ( $result ){
                 $data = ldap_get_entries($ldapbind[0], $result);
@@ -79,5 +83,11 @@ trait LdapConnectTrait {
             // échec bind
             return [$ldapbind,"echec bind !"];
         }
+    }
+
+    public function adldapGetUsers() {
+        // Finding a user:
+        $user = Adldap::search()->users()->find('jude');
+        dd($user);
     }
 }
