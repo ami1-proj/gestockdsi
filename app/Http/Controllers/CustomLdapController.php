@@ -11,7 +11,7 @@ class CustomLdapController extends Controller
 
     public function test()
     {
-    	$this->ldapGetUsers();
-    	
+    	$this->adldapGetUsers();
+
     }
 }

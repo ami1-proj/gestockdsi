@@ -6,8 +6,6 @@ use Adldap\Laravel\Facades\Adldap;
 
 trait LdapConnectTrait {
 
-    use Adldap;
-
   public function ldapconnect()
   {
       $ad_host = config('app.ldap_host');
