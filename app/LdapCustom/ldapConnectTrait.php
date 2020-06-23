@@ -87,7 +87,7 @@ trait LdapConnectTrait {
      if ($ldapconn) {
         // tentative de bind au serveur ldap
           $ldapbind = @ldap_bind($ldapconn, $ldapuser, $ldappass);
-
+          dd($ldapbind);
           if ($ldapbind) {
             $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
             if ( $result ){
