@@ -9,28 +9,29 @@ trait LdapConnectTrait {
       $ad_host = config('app.ldap_host');
       $ad_domain = config('app.ldap_domain');
       $ad_dn = config('app.ldap_base_dn');
+      $ad_port = config('app.ldap_port');
 
-      $ad_conn = ldap_connect($ad_host, 389);
+      $ad_conn = ldap_connect($ad_host, $ad_port);
 
-      if ($ad_conn) 
+      if ($ad_conn)
       {
-          if (ldap_set_option($ad_conn, LDAP_OPT_PROTOCOL_VERSION, 3)) 
+          if (ldap_set_option($ad_conn, LDAP_OPT_PROTOCOL_VERSION, 3))
           {
-            if (ldap_set_option($ad_conn, LDAP_OPT_REFERRALS, 0)) 
+            if (ldap_set_option($ad_conn, LDAP_OPT_REFERRALS, 0))
             {
               return [$ad_conn,"connection LDAP réussie"];
             }
-            else 
+            else
             {
               return [$ad_conn,"Protocole Ldap V2 inapplicable!"];
             }
-          } 
-          else 
+          }
+          else
           {
              return [$ad_conn,"La connection a echouee AD!"];
           }
-      } 
-      else 
+      }
+      else
       {
         return [$ad_conn,"Protocole Ldap V1 inapplicable!"];
       }
@@ -40,16 +41,16 @@ trait LdapConnectTrait {
   {
       $ad_domain = config('app.ldap_domain');
       $user = $username. '' .$ad_domain;
-      
+
       $ad_conn = $this->ldapconnect();
 
       if ($ad_conn[0]) {
-        $auth_ad_with_user = @ldap_bind($ad_conn, $user, $pass);
-        if ($auth_ad_with_user)  
+        $auth_ad_with_user = @ldap_bind($ad_conn, $user, $password);
+        if ($auth_ad_with_user)
         {
-          return [$auth_ad_with_user,"succes authentification !"];
+          return [$ad_conn[0],$auth_ad_with_user,"succes authentification !"];
         } else {
-          return [$auth_ad_with_user,"echec authentification !"];
+          return [$ad_conn,$auth_ad_with_user,"echec authentification !"];
         }
       } else {
           return $ad_conn;
@@ -57,57 +58,26 @@ trait LdapConnectTrait {
 
     }
 
-    public function ldapGetUsersold()
-    {
-        $ad_conn = $this->ldapconnect();
-        $person = "";
-        $dn = "o=My Company, c=US";
-        $filter="(|(sn=$person*)(givenname=$person*))";
-        $justthese = array("ou", "sn", "givenname", "mail");
-        
-        if ($ad_conn[0]) {
-          $sr=ldap_search($ad_conn[0],$ad_conn, $filter, $justthese);
-          $info = ldap_get_entries($ds, $sr);
-        }
-
-        dd($ad_conn,$sr,$info);
-    }
-
     public function ldapGetUsers()
     {
-      $ad_domain = config('app.ldap_domain');
-      $ldapuser = 'jngom' . '' .$ad_domain;
-      $ldappass = 'P@rfait1283';
-      $ldaptree = config('app.ldap_tree');
-      
-      //$ad_conn = $this->ldapconnect();
-      $ad_host = config('app.ldap_host');
-      //$ldapconn = ldap_connect($ad_host);
-        
-     // tentative de bind au serveur ldap
-     $ldapbind = $this->ldapauthenticate($ldapuser, $ldappass);
-     dd($ldapbind);
-     if ($ldapbind) {
-          if ($ldapbind) {
-            $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
+        $ldapuser = config('app.ldap_base_user');
+        $ldappass = config('app.ldap_base_userpwd');
+        $ldaptree = config('app.ldap_tree');
+
+        $ldapbind = $this->ldapauthenticate($ldapuser, $ldappass);
+
+        if ($ldapbind) {
+            $result = ldap_search($ldapbind[0],$ldaptree, "(cn=*)");
             if ( $result ){
-              $data = ldap_get_entries($ldapconn, $result);
-              dd($data);
-            } else { 
+                $data = ldap_get_entries($ldapbind[0], $result);
+                dd($data);
+            } else {
               // échec résultat
               return [$ldapbind,"erreur !"];
             }
-          } else {
+        } else {
             // échec bind
-            return [$ldapbind,"echec bind !"]; 
-          } 
-
-     } else {
-        return $ad_conn;
-     }
-
-
-
-
+            return [$ldapbind,"echec bind !"];
+        }
     }
 }

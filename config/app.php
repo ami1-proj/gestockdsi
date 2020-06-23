@@ -18,10 +18,13 @@ return [
 
     'typearticle_filefolder' => env('FILE_FOLDER_TYPEARTICLE', 'uploads/typearticle'),
 
-    'ldap_host' => env('LDAP_HOST', '192.16.5.62'),
+    'ldap_host' => env('LDAP_HOST', '192.168.5.228'),
+    'ldap_port' => env('LDAP_PORT', '389'),
     'ldap_domain' => env('LDAP_DOMAIN', '@gabontelecom.ga'),
-    'ldap_base_dn' => env('LDAP_BASE_DN', 'DC=gabontelecom, DC=ga'),
-    'ldap_tree' => env('LDAP_TREE', 'DC=gabontelecom, DC=ga'),
+    'ldap_base_dn' => env('LDAP_BASE_DN', 'DC=gabontelecom,DC=ga'),
+    'ldap_tree' => env('LDAP_TREE', 'DC=gabontelecom,DC=ga'),
+    'ldap_base_user' => env('LDAP_BASE_USER', 'jngom'),
+    'ldap_base_userpwd' => env('LDAP_BASE_USERPWD', 'P@rfait1283'),
 
 
     /*
@@ -170,7 +173,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        
+
         /*
          * Package Service Providers...
          */
@@ -237,7 +240,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        
+
 
     ],
 
