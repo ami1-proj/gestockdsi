@@ -83,11 +83,11 @@ trait LdapConnectTrait {
       //$ad_conn = $this->ldapconnect();
       $ad_host = config('app.ldap_host');
       //$ldapconn = ldap_connect($ad_host);
-
-     if ($ldapconn) {
-        // tentative de bind au serveur ldap
-          $ldapbind = $this->ldapauthenticate($ldapuser, $ldappass);
-          dd($ldapbind);
+        
+     // tentative de bind au serveur ldap
+     $ldapbind = $this->ldapauthenticate($ldapuser, $ldappass);
+     dd($ldapbind);
+     if ($ldapbind) {
           if ($ldapbind) {
             $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
             if ( $result ){
