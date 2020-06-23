@@ -75,7 +75,8 @@ trait LdapConnectTrait {
 
     public function ldapGetUsers()
     {
-      $ldapuser = 'jngom'; 
+      $ad_domain = config('app.ldap_domain');
+      $ldapuser = 'jngom' . '' .$ad_domain;
       $ldappass = 'P@rfait1283';
       $ldaptree = config('app.ldap_tree');
       
@@ -85,7 +86,7 @@ trait LdapConnectTrait {
 
      if ($ldapconn) {
         // tentative de bind au serveur ldap
-          $ldapbind = ldap_bind($ldapconn, $ldapuser, $ldappass);
+          $ldapbind = @ldap_bind($ldapconn, $ldapuser, $ldappass);
 
           if ($ldapbind) {
             $result = ldap_search($ldapconn,$ldaptree, "(cn=*)"); 
