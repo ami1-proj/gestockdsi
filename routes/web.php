@@ -21,6 +21,9 @@
         	return view('tests.index');
    	})->name('tests');
 
+
+    Route::get('/ldaptest', 'CustomLdapController@test')->name('ldaptest');
+
     /**
      * Users & Roles
      */

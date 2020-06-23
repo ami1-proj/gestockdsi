@@ -56,4 +56,20 @@ trait LdapConnectTrait {
       }
 
     }
+
+    public function ldapGetUsers()
+    {
+        $ad_conn = $this->ldapconnect();
+
+        $dn = "o=My Company, c=US";
+        $filter="(|(sn=$person*)(givenname=$person*))";
+        $justthese = array("ou", "sn", "givenname", "mail");
+        
+        if ($ad_conn[0]) {
+          $sr=ldap_search($ad_conn[0],$ad_conn, $filter, $justthese);
+          $info = ldap_get_entries($ds, $sr);
+        }
+
+        dd($ad_conn,$sr,$info);
+    }
 }
