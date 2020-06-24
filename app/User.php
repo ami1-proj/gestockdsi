@@ -112,42 +112,6 @@ class User extends Authenticatable
       return [];
     }
 
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'utilisateurs',
-    //     'modeltype' => 'de l utilisateur',
-    //     'index_route' => 'UserController@index',
-    //     'create_route' => 'UserController@create',
-    //     'store_route' => 'UserController@store',
-    //     'show_route' => 'UserController@show',
-    //     'edit_route' => 'UserController@edit',
-    //     'update_route' => 'UserController@update',
-    //     'destroy_route' => 'UserController@destroy',
-    //     'table_values' => 'users.table_values',
-    //     'table_headers' => 'users.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'users',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'users.fields',
-    //     'morecontrols' => ['users.roles_control'],
-    //     'breadcrumb_title' => 'users.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'users.edit',
-    //     'model_fields' => 'users.fields',
-    //     'morecontrols' => ['users.roles_control'],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'users.show',
-    //   ],
-    //   'field_label' => 'name',
-    // ];
-
     /**
      * Renvoie le Statut du User.
      */
