@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -72,44 +71,6 @@ class Employe extends AppBaseModel
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'employes',
-    //     'modeltype' => 'de l’employe',
-    //     'index_route' => 'EmployeController@index',
-    //     'create_route' => 'EmployeController@create',
-    //     'store_route' => 'EmployeController@store',
-    //     'show_route' => 'EmployeController@show',
-    //     'edit_route' => 'EmployeController@edit',
-    //     'update_route' => 'EmployeController@update',
-    //     'destroy_route' => 'EmployeController@destroy',
-    //     'table_values' => 'employes.table_values',
-    //     'table_headers' => 'employes.table_headers',
-    //     'affectation_tag' => 'Employe',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'employes',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'breadcrumb_title' => 'employes.create',
-    //     'breadcrumb_param' => '',
-    //     'model_fields' => 'employes.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => ['fonctionemployes.add_withmodal_form'],
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'employes.edit',
-    //     'model_fields' => 'employes.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => ['fonctionemployes.add_withmodal_form'],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'employes.show',
-    //   ],
-    //   'field_label' => 'nom_complet',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

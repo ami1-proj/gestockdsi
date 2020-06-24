@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\TypeAffectation;
 
 use App\Traits\RelationshipsTrait;
 
@@ -92,7 +90,7 @@ class Departement extends AppBaseModel
       ];
     }
 
-      
+
 
     public function scopeSearch($query, $q, $caller) {
       if ($q == null) return $query;

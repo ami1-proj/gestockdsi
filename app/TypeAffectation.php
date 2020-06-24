@@ -2,9 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Statut;
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -72,42 +69,6 @@ class TypeAffectation extends AppBaseModel
         'libelle.required' => 'Prière de renseigner le Libellé',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'types affectation',
-    //     'modeltype' => 'du type d’affectation',
-    //     'index_route' => 'TypeAffectationController@index',
-    //     'create_route' => 'TypeAffectationController@create',
-    //     'store_route' => 'TypeAffectationController@store',
-    //     'show_route' => 'TypeAffectationController@show',
-    //     'edit_route' => 'TypeAffectationController@edit',
-    //     'update_route' => 'TypeAffectationController@update',
-    //     'destroy_route' => 'TypeAffectationController@destroy',
-    //     'table_values' => 'typeaffectations.table_values',
-    //     'table_headers' => 'typeaffectations.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'typeaffectations',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'typeaffectations.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'typeaffectations.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'typeaffectations.edit',
-    //     'model_fields' => 'typeaffectations.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'typeaffectations.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

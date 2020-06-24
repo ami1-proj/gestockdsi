@@ -27,11 +27,11 @@ class SituationArticle extends Model
     public function scopeDefault($query, $exclude = [] ) {
 
       return $query->where('default', true)->whereNotIn('id', $exclude);
-      
+
     }
 
-    public function scopeTagged($tag){
+    public function scopeTagged($query, $tag){
       return $query
-        ->where('tags', 'LIKE', "%{$tags}%");
+        ->where('tags', 'LIKE', "%{$tag}%");
     }
 }

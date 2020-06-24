@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class EtatArticle extends AppBaseModel
@@ -68,42 +66,6 @@ class EtatArticle extends AppBaseModel
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'etats article',
-    //     'modeltype' => 'de l’Etat d’article',
-    //     'index_route' => 'EtatArticleController@index',
-    //     'create_route' => 'EtatArticleController@create',
-    //     'store_route' => 'EtatArticleController@store',
-    //     'show_route' => 'EtatArticleController@show',
-    //     'edit_route' => 'EtatArticleController@edit',
-    //     'update_route' => 'EtatArticleController@update',
-    //     'destroy_route' => 'EtatArticleController@destroy',
-    //     'table_values' => 'etatarticles.table_values',
-    //     'table_headers' => 'etatarticles.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'etatarticles',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'etatarticles.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'etatarticles.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'etatarticles.edit',
-    //     'model_fields' => 'etatarticles.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'etatarticles.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 class TypeMouvement extends AppBaseModel
 {
@@ -68,42 +66,6 @@ class TypeMouvement extends AppBaseModel
         'libelle.required' => 'Prière de renseigner le Libellé',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'types mouvement',
-    //     'modeltype' => 'du type de mouvement',
-    //     'index_route' => 'TypeMouvementController@index',
-    //     'create_route' => 'TypeMouvementController@create',
-    //     'store_route' => 'TypeMouvementController@store',
-    //     'show_route' => 'TypeMouvementController@show',
-    //     'edit_route' => 'TypeMouvementController@edit',
-    //     'update_route' => 'TypeMouvementController@update',
-    //     'destroy_route' => 'TypeMouvementController@destroy',
-    //     'table_values' => 'typemouvements.table_values',
-    //     'table_headers' => 'typemouvements.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'typemouvements',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'typemouvements.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'typemouvements.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'typemouvements.edit',
-    //     'model_fields' => 'typemouvements.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'typemouvements.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

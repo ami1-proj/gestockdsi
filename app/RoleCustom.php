@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
 
 use App\Traits\PermissionTrait;
@@ -79,42 +78,6 @@ class RoleCustom extends Role
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'roles',
-    //     'modeltype' => 'du role',
-    //     'index_route' => 'RoleController@index',
-    //     'create_route' => 'RoleController@create',
-    //     'store_route' => 'RoleController@store',
-    //     'show_route' => 'RoleController@show',
-    //     'edit_route' => 'RoleController@edit',
-    //     'update_route' => 'RoleController@update',
-    //     'destroy_route' => 'RoleController@destroy',
-    //     'table_values' => 'roles.table_values',
-    //     'table_headers' => 'roles.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'roles',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'roles.fields',
-    //     'morecontrols' => ['roles.permissions_control'],
-    //     'breadcrumb_title' => 'roles.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'roles.edit',
-    //     'model_fields' => 'roles.fields',
-    //     'morecontrols' => ['roles.permissions_control'],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'roles.show',
-    //   ],
-    //   'field_label' => 'name',
-    // ];
 
     /**
      * Renvoie le Statut de Role.

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class EtatCommande extends AppBaseModel
@@ -71,42 +69,6 @@ class EtatCommande extends AppBaseModel
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'etats commande',
-    //     'modeltype' => 'de l’Etat de commande',
-    //     'index_route' => 'EtatCommandeController@index',
-    //     'create_route' => 'EtatCommandeController@create',
-    //     'store_route' => 'EtatCommandeController@store',
-    //     'show_route' => 'EtatCommandeController@show',
-    //     'edit_route' => 'EtatCommandeController@edit',
-    //     'update_route' => 'EtatCommandeController@update',
-    //     'destroy_route' => 'EtatCommandeController@destroy',
-    //     'table_values' => 'etatcommandes.table_values',
-    //     'table_headers' => 'etatcommandes.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'etatcommandes',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'etatcommandes.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'etatcommandes.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'etatcommandes.edit',
-    //     'model_fields' => 'etatcommandes.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'etatcommandes.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

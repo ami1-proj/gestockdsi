@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -70,42 +69,6 @@ class Commande extends AppBaseModel
 
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'commandes',
-    //     'modeltype' => 'de la commande',
-    //     'index_route' => 'CommandeController@index',
-    //     'create_route' => 'CommandeController@create',
-    //     'store_route' => 'CommandeController@store',
-    //     'show_route' => 'CommandeController@show',
-    //     'edit_route' => 'CommandeController@edit',
-    //     'update_route' => 'CommandeController@update',
-    //     'destroy_route' => 'CommandeController@destroy',
-    //     'table_values' => 'commandes.table_values',
-    //     'table_headers' => 'commandes.table_headers',
-    //     'affectation_tag' => 'Commande',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'commandes',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'breadcrumb_title' => 'commandes.create',
-    //     'breadcrumb_param' => '',
-    //     'model_fields' => 'commandes.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'commandes.edit',
-    //     'model_fields' => 'commandes.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'commandes.show',
-    //   ],
-    //   'field_label' => 'objet_commande',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

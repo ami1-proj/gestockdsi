@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -70,42 +69,6 @@ class Fournisseur extends AppBaseModel
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'fournisseurs',
-    //     'modeltype' => 'du fournisseur',
-    //     'index_route' => 'FournisseurController@index',
-    //     'create_route' => 'FournisseurController@create',
-    //     'store_route' => 'FournisseurController@store',
-    //     'show_route' => 'FournisseurController@show',
-    //     'edit_route' => 'FournisseurController@edit',
-    //     'update_route' => 'FournisseurController@update',
-    //     'destroy_route' => 'FournisseurController@destroy',
-    //     'table_values' => 'fournisseurs.table_values',
-    //     'table_headers' => 'fournisseurs.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'fournisseurs',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'fournisseurs.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'fournisseurs.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'fournisseurs.edit',
-    //     'model_fields' => 'fournisseurs.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'fournisseurs.show',
-    //   ],
-    //   'field_label' => 'raison_sociale',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

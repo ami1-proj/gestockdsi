@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class Affectation extends AppBaseModel
@@ -180,7 +178,7 @@ class Affectation extends AppBaseModel
       return \Illuminate\Database\Eloquent\Collection::make($articles);
     }
 
-    
+
 
     public function beneficiaire() {
       if (is_null($this->typeAffectation)) {

@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -79,7 +78,7 @@ class Article extends AppBaseModel
         'reference.required' => 'Prière de renseigner une référence',
         'taille.required' => 'Prière de renseigner la taille',
         'reference.min:3' => 'La référence doit comporter au moins 3 caractères',
-        'reference.min:3' => 'La référence doit comporter au trop 100 caractères',
+        'reference.max:100' => 'La référence doit comporter au trop 100 caractères',
         'date_livraison.required' => 'Prière de renseigner la date de Livraison',
         'date_livraison.date' => 'La date de Livraison doit avoir un format de date valide',
         'statut_id.required' => 'Prière de rensigner le Statut',
@@ -90,44 +89,6 @@ class Article extends AppBaseModel
         'affectation_id.required' => 'Prière de rensigner l Affectation de l article',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'articles',
-    //     'modeltype' => 'de l’article',
-    //     'index_route' => 'ArticleController@index',
-    //     'create_route' => 'ArticleController@create',
-    //     'store_route' => 'ArticleController@store',
-    //     'show_route' => 'ArticleController@show',
-    //     'edit_route' => 'ArticleController@edit',
-    //     'update_route' => 'ArticleController@update',
-    //     'destroy_route' => 'ArticleController@destroy',
-    //     'table_values' => 'articles.table_values',
-    //     'table_headers' => 'articles.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'articles',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'breadcrumb_title' => 'articles.create',
-    //     'breadcrumb_param' => '',
-    //     'model_fields' => 'articles.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => ['marquearticles.add_withmodal_form'],
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'articles.edit',
-    //     'model_fields' => 'articles.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => ['marquearticles.add_withmodal_form'],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'articles.show',
-    //   ],
-    //   'field_label' => 'reference_complete',
-    // ];
 
     /**
      * The attributes that should be mutated to dates.

@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class TypeArticle extends AppBaseModel
@@ -71,42 +69,6 @@ class TypeArticle extends AppBaseModel
         'libelle.required' => 'Prière de renseigner le Libellé',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'types article',
-    //     'modeltype' => 'du type d’article',
-    //     'index_route' => 'TypeArticleController@index',
-    //     'create_route' => 'TypeArticleController@create',
-    //     'store_route' => 'TypeArticleController@store',
-    //     'show_route' => 'TypeArticleController@show',
-    //     'edit_route' => 'TypeArticleController@edit',
-    //     'update_route' => 'TypeArticleController@update',
-    //     'destroy_route' => 'TypeArticleController@destroy',
-    //     'table_values' => 'typearticles.table_values',
-    //     'table_headers' => 'typearticles.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'typearticles',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'typearticles.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'typearticles.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'typearticles.edit',
-    //     'model_fields' => 'typearticles.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'typearticles.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

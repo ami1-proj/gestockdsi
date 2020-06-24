@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -68,44 +67,6 @@ class TypeDepartement extends AppBaseModel
         'intitule.required' => 'Prière de renseigner l Intitule',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'Type Departements',
-    //     'modeltype' => 'du type de departement',
-    //     'index_route' => 'TypeDepartementController@index',
-    //     'create_route' => 'TypeDepartementController@create',
-    //     'store_route' => 'TypeDepartementController@store',
-    //     'show_route' => 'TypeDepartementController@show',
-    //     'edit_route' => 'TypeDepartementController@edit',
-    //     'update_route' => 'TypeDepartementController@update',
-    //     'destroy_route' => 'TypeDepartementController@destroy',
-    //     'table_values' => 'typedepartements.table_values',
-    //     'table_headers' => 'typedepartements.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'typedepartements',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'breadcrumb_title' => 'typedepartements.create',
-    //     'breadcrumb_param' => '',
-    //     'model_fields' => 'typedepartements.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => [],
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'typedepartements.edit',
-    //     'model_fields' => 'typedepartements.fields',
-    //     'morecontrols' => [],
-    //     'moreforms' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'typedepartements.show',
-    //   ],
-    //   'field_label' => 'intitule',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

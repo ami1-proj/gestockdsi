@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class FonctionEmploye extends AppBaseModel
@@ -71,42 +69,6 @@ class FonctionEmploye extends AppBaseModel
     public static function validationMessages() {
       return [];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'fonctions Employe',
-    //     'modeltype' => 'de la fonction',
-    //     'index_route' => 'FonctionEmployeController@index',
-    //     'create_route' => 'FonctionEmployeController@create',
-    //     'store_route' => 'FonctionEmployeController@store',
-    //     'show_route' => 'FonctionEmployeController@show',
-    //     'edit_route' => 'FonctionEmployeController@edit',
-    //     'update_route' => 'FonctionEmployeController@update',
-    //     'destroy_route' => 'FonctionEmployeController@destroy',
-    //     'table_values' => 'fonctionemployes.table_values',
-    //     'table_headers' => 'fonctionemployes.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'fonctionemployes',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'fonctionemployes.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'fonctionemployes.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'fonctionemployes.edit',
-    //     'model_fields' => 'fonctionemployes.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'fonctionemployes.show',
-    //   ],
-    //   'field_label' => 'intitule',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;

@@ -83,42 +83,6 @@ class Statut extends Model
       return [];
     }
 
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'statuts',
-    //     'modeltype' => 'du statut',
-    //     'index_route' => 'StatutController@index',
-    //     'create_route' => 'StatutController@create',
-    //     'store_route' => 'StatutController@store',
-    //     'show_route' => 'StatutController@show',
-    //     'edit_route' => 'StatutController@edit',
-    //     'update_route' => 'StatutController@update',
-    //     'destroy_route' => 'StatutController@destroy',
-    //     'table_values' => 'statuts.table_values',
-    //     'table_headers' => 'statuts.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'statuts',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'statuts.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'statuts.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'statuts.edit',
-    //     'model_fields' => 'statuts.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'statuts.show',
-    //   ],
-    //   'field_label' => 'libelle',
-    // ];
-
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;
 

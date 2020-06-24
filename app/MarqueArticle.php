@@ -2,9 +2,7 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Statut;
 
 
 class MarqueArticle extends AppBaseModel
@@ -70,42 +68,6 @@ class MarqueArticle extends AppBaseModel
         'libelle.required' => 'Prière de renseigner le libelle',
       ];
     }
-
-    // public static $view_attributes_array = [
-    //   'raw' => [
-    //     'title' => 'marques Article',
-    //     'modeltype' => 'de la marque',
-    //     'index_route' => 'MarqueArticleController@index',
-    //     'create_route' => 'MarqueArticleController@create',
-    //     'store_route' => 'MarqueArticleController@store',
-    //     'show_route' => 'MarqueArticleController@show',
-    //     'edit_route' => 'MarqueArticleController@edit',
-    //     'update_route' => 'MarqueArticleController@update',
-    //     'destroy_route' => 'MarqueArticleController@destroy',
-    //     'table_values' => 'marquearticles.table_values',
-    //     'table_headers' => 'marquearticles.table_headers',
-    //     'affectation_tag' => '',
-    //   ],
-    //   'index' => [
-    //     'breadcrumb_title' => 'marquearticles',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'create' => [
-    //     'model_fields' => 'marquearticles.fields',
-    //     'morecontrols' => [],
-    //     'breadcrumb_title' => 'marquearticles.create',
-    //     'breadcrumb_param' => '',
-    //   ],
-    //   'edit' => [
-    //     'breadcrumb_title' => 'marquearticles.edit',
-    //     'model_fields' => 'marquearticles.fields',
-    //     'morecontrols' => [],
-    //   ],
-    //   'show' => [
-    //     'breadcrumb_title' => 'marquearticles.show',
-    //   ],
-    //   'field_label' => 'nom',
-    // ];
 
     public function scopeSearch($query, $q) {
       if ($q == null) return $query;
