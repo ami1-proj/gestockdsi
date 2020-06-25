@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ldapimport extends Model
 {
     protected $guarded = [];
-    protected $table = 'ldapimports';
+    //protected $table = 'ldapimports';
 
     public function getTableColumns() {
         //$columns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());

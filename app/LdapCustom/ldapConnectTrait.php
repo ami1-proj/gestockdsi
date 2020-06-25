@@ -154,7 +154,7 @@ trait LdapConnectTrait {
               if ($ldap_val) {
                   if ($column === "cn") {
                       // nom Complet
-                      $employe->nom_complet = $ldap_val;
+                      //$employe->nom_complet = $ldap_val;
                   } elseif ($column === "sn") {
                       // nom de famille
                       $employe->nom = ucwords($ldap_val);
