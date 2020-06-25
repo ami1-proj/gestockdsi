@@ -16,4 +16,14 @@ class Ldapimport extends Model
 
         return $columns;
     }
+
+    public function getLdapColumns() {
+        $ldap_cols = [];
+        foreach ($this->getTableColumns() as $col) {
+            if (substr($col, 0, 5) === "ldap_") {
+                $ldap_cols[] = str_replace($col, "", "ldap_");
+            }
+        }
+        return $ldap_cols;
+    }
 }

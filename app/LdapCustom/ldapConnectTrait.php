@@ -120,79 +120,77 @@ trait LdapConnectTrait {
   public function adldapSyncUser(String $username) {
       $user = Adldap::search()->users()->find($username);
       if ($user) {
-          $userimported = Ldapimport::where('email', $user['attributes']['mail']);
+          $userimported = Ldapimport::where('email', $user->getFirstAttribute('userprincipalname'))->first();
           if (! $userimported) {
-              // importation de ce user avant synchronisation
-          }
-
-          foreach ($userimported->getTableColumns() as $column) {
-              if (substr($column, 0, 5) === "ldap_") {
-                  $column_ldap = str_replace($column, "", "ldap_");
-                  if (array_key_exists($column_ldap, $user['attributes'])) {
-                      $userimported->{$column} = $user['attributes'][$column_ldap][0];
+              // user non trouvé dans la base d'importation
+          } else {
+              foreach ($userimported->getLdapColumns() as $column) {
+                  $ldap_val = $user->getFirstAttribute($column);
+                  if ($ldap_val) {
+                      $userimported->{"ldap_" . $column} = $ldap_val;
                       $userimported->{$column . "_result"} = "OK.";
-
-                      $employe = Employe::where('objectguid', $userimported->objectguid);
-                      $this->setEmployeInfos($username, $employe, $column, $userimported->{$column});
                   } else {
                       $userimported->{$column . "_result"} = "champs non existant pour cet utilisateur.";
                   }
               }
+              $userimported->save();
+              $this->setEmployeInfos($username, $userimported, $user);
           }
       }
   }
 
-    /**
-     * Set les infos de l'employé
-     * @param String $username nom complet de l'utilisateur
-     * @param Employe $employe employé
-     * @param String $col champs LDAP
-     * @param String $val valeur LDAP
-     */
-  private function setEmployeInfos(String $username, Employe $employe, String $col, String $val) {
-        if (! $employe) {
-            $employe = Employe::create([
-                'statut_id' => 1,
-            ]);
-        }
+  private function setEmployeInfos(String $username, Ldapimport $userimported, $userldap) {
+      $employe = Employe::where('objectguid', $userimported->objectguid)->first();
+      if (! $employe) {
+          $employe = Employe::create([
+              'statut_id' => 1,
+          ]);
+      }
 
-        if ($col == "cn") {
-            // nom Complet
-            $employe->nom_complet = $val;
-        } elseif ($col == "sn") {
-            // nom de famille
-            $employe->nom = ucwords($val);
-        } elseif ($col == "title") {
-            // fonction employe
-            $fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $val . '%')->first();
-            if (! $fonctionemploye) {
-                $fonctionemploye = FonctionEmploye::create([
-                    'intitule' => $val,
-                    'description' => $val,
-                    'statut_id' => 1,
-                ]);
-            }
-            $employe->fonction_employe_id = $fonctionemploye->id;
-        } elseif ($col == "distinguishedname") {
-            // infos complets de l employé
-            $dpt_tree = str_replace("CN=".$username.",", "", $val);
-            $dpt = $this->parseDepartementTree($dpt_tree);
-            $employe->departement_id = $dpt->id;
-        } elseif ($col == "name") {
-            // nom de famille
-            $employe->nom = ucwords($val);
-        } elseif ($col == "mail") {
-            // adresse email
-            $email = Adresseemail::where('email', $val)->first();
-            if (! $email) {
-                $this->createNewAdresseemail($email, '', $employe->id);
-            }
-        } elseif ($col == "thumbnailphoto") {
-            // photo de profil
-            $employe->thumbnailphoto = $val;
-        }
+      if ($employe) {
+          foreach ($userimported->getLdapColumns() as $column) {
+              $ldap_val = $userldap->getFirstAttribute($column);
+              if ($ldap_val) {
+                  if ($column == "cn") {
+                      // nom Complet
+                      $employe->nom_complet = $ldap_val;
+                  } elseif ($column == "sn") {
+                      // nom de famille
+                      $employe->nom = ucwords($ldap_val);
+                  } elseif ($column == "title") {
+                      // fonction employe
+                      /*$fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $ldap_val . '%')->first();
+                      if (!$fonctionemploye) {
+                          $fonctionemploye = FonctionEmploye::create([
+                              'intitule' => $ldap_val,
+                              'description' => $ldap_val,
+                              'statut_id' => 1,
+                          ]);
+                      }
+                      $employe->fonction_employe_id = $fonctionemploye->id;*/
+                  } elseif ($column == "distinguishedname") {
+                      // infos complets de l employé
+                      /*$dpt_tree = str_replace("CN=" . $username . ",", "", $ldap_val);
+                      $dpt = $this->parseDepartementTree($dpt_tree);
+                      $employe->departement_id = $dpt->id;*/
+                  } elseif ($column == "name") {
+                      // nom de famille
+                      $employe->nom = ucwords($ldap_val);
+                  } elseif ($column == "mail") {
+                      // adresse email
+                      /*$email = Adresseemail::where('email', $ldap_val)->first();
+                      if (!$email) {
+                          $this->createNewAdresseemail($email, '', $employe->id);
+                      }*/
+                  } elseif ($column == "thumbnailphoto") {
+                      // photo de profil
+                      $employe->thumbnailphoto = $ldap_val;
+                  }
+              }
+          }
 
-        $employe->save();
+          $employe->save();
+      }
   }
 
     /**
