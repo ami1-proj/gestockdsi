@@ -128,7 +128,6 @@ trait LdapConnectTrait {
               foreach ($userimported->getLdapColumns() as $column) {
                   $ldap_val = $user->getFirstAttribute($column);
                   if ($ldap_val) {
-                      dump('col: ',$column);
                       //$userimported->{"ldap_" . $column} = $ldap_val;
                       if ($column === "thumbnailphoto") {
                           $ldap_val = decbin(ord($ldap_val));
@@ -142,17 +141,16 @@ trait LdapConnectTrait {
                   }
               }
               dump('user: ',$user);
-              dump('userimported bfor save: ', $userimported);
+              dump('userimported: ', $userimported);
               dump('newvalues: ', $newvalues);
               //$userimported->save();
               $userimported->update($newvalues);
-              dump('userimported after save: ', $userimported);
               $this->setEmployeInfos($username, $userimported, $user);
           }
       }
   }
 
-  private function setEmployeInfos(String $username, Ldapimport $userimported, $userldap) {
+  private function setEmployeInfos(Ldapimport $userimported, $userldap) {
       $employe = Employe::where('objectguid', $userimported->objectguid)->first();
       if (! $employe) {
           $employe = Employe::create([
@@ -184,7 +182,7 @@ trait LdapConnectTrait {
                       $employe->fonction_employe_id = $fonctionemploye->id;
                   } elseif ($column === "distinguishedname") {
                       // infos complets de l employé
-                      $dpt_tree = str_replace("CN=" . $username, "", $ldap_val);
+                      $dpt_tree = str_replace("CN=" . $userldap->getFirstAttribute("cn"), "", $ldap_val);
                       $dpt_tree = str_replace(["OU=UTILISATEURS","DC=groupegt","DC=ga","OU="], "", $dpt_tree);
                       $dpt = $this->parseDepartementTree($dpt_tree);
                       $employe->departement_id = $dpt->id;
