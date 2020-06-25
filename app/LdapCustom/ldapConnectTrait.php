@@ -224,8 +224,7 @@ trait LdapConnectTrait {
             if (empty($dept)) {
                 // Empty dept
             } else {
-                $dept = strtolower($dept);
-                $dept = ucwords($dept);
+                $dept = $this->formatDepartementIntitule($dept);
                 $curr_dept = Departement::where('intitule', $dept)->first();
                 if (!$curr_dept) {
                     // création d'un nouveau département
@@ -260,10 +259,7 @@ trait LdapConnectTrait {
      * @return int|null
      */
   private function parseDepartementType($intitule) {
-      if (strpos(strtolower($intitule), 'service') !== false) {
-          $type = TypeDepartement::where('intitule', 'Service')->first();
-          return $type->id;
-      } elseif (strpos(strtolower($intitule), 'direction') !== false) {
+      if (strpos(strtolower($intitule), 'direction') !== false) {
           $type = TypeDepartement::where('intitule', 'Direction')->first();
           return $type->id;
       } elseif (strpos(strtolower($intitule), 'division') !== false) {
@@ -272,11 +268,33 @@ trait LdapConnectTrait {
       } elseif (strpos(strtolower($intitule), 'zone') !== false) {
           $type = TypeDepartement::where('intitule', 'Zone')->first();
           return $type->id;
+      } elseif (strpos(strtolower($intitule), 'service') !== false) {
+          $type = TypeDepartement::where('intitule', 'Service')->first();
+          return $type->id;
       } elseif (strpos(strtolower($intitule), 'agence') !== false) {
           $type = TypeDepartement::where('intitule', 'Agence')->first();
           return $type->id;
       } else {
           return null;
       }
+  }
+
+  private function formatDepartementIntitule($intitule) {
+      $intitule_tab = explode(' ', $intitule);
+
+      for ($i = 0; $i < count($intitule_tab); $i++) {
+          // Mettre en minuscules
+          $intitule_tab[$i] = strtolower($intitule_tab[$i]);
+          // Mettre les debuts de mot en Majuscule
+          $intitule_tab[$i] = ucwords($intitule_tab[$i]);
+          // Les sigles entre parenthèses
+          if ( (substr($intitule_tab[$i], 0, 1) === "(") && (substr($intitule_tab[$i], -1) === ")") && (strlen($intitule_tab[$i]) <= 7) ) {
+              $intitule_tab[$i] = strtolower($intitule_tab[$i]);
+          }
+          // Replaces: tous les rh
+          $intitule = str_replace([" rh ", " Rh "], " RH ", $intitule);
+      }
+      $intitule = implode(' ', $intitule_tab);
+      return $intitule;
   }
 }
