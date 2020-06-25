@@ -8,6 +8,7 @@ use App\Departement;
 use App\Employe;
 use App\FonctionEmploye;
 use App\Ldapimport;
+use App\Phonenum;
 use App\TypeDepartement;
 use App\Traits\AdresseemailTrait;
 use App\Traits\PhonenumTrait;
@@ -165,13 +166,13 @@ trait LdapConnectTrait {
               if ($ldap_val) {
                   if ($column === "sn") {
                       // Nom de famille
-                      $employe->nom = $ldap_val;
+                      $employe->nom = ucwords($ldap_val);
                   } elseif ($column === "givenname") {
                       // Prénom
                       $employe->prenom = ucwords($ldap_val);
                   } elseif ($column === "title") {
                       // fonction employe
-                      /*$fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $ldap_val . '%')->first();
+                      $fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $ldap_val . '%')->first();
                       if (!$fonctionemploye) {
                           $fonctionemploye = FonctionEmploye::create([
                               'intitule' => $ldap_val,
@@ -179,21 +180,25 @@ trait LdapConnectTrait {
                               'statut_id' => 1,
                           ]);
                       }
-                      $employe->fonction_employe_id = $fonctionemploye->id;*/
+                      $employe->fonction_employe_id = $fonctionemploye->id;
                   } elseif ($column === "distinguishedname") {
                       // infos complets de l employé
-                      /*$dpt_tree = str_replace("CN=" . $username . ",", "", $ldap_val);
+                      $dpt_tree = str_replace("CN=" . $username, "", $ldap_val);
+                      $dpt_tree = str_replace(["OU=UTILISATEURS","DC=groupegt","DC=ga","OU="], "", $dpt_tree);
                       $dpt = $this->parseDepartementTree($dpt_tree);
-                      $employe->departement_id = $dpt->id;*/
-                  } elseif ($column === "name") {
-                      // nom de famille
-                      $employe->nom = ucwords($ldap_val);
+                      $employe->departement_id = $dpt->id;
                   } elseif ($column === "mail") {
                       // adresse email
-                      /*$email = Adresseemail::where('email', $ldap_val)->first();
+                      $email = Adresseemail::where('email', $ldap_val)->first();
                       if (!$email) {
-                          $this->createNewAdresseemail($email, '', $employe->id);
-                      }*/
+                          $this->createNewAdresseemail($email, 'employe', $employe->id);
+                      }
+                  } elseif ($column === "telephonenumber") {
+                      // phone num
+                      $phonenum = Phonenum::where('numero', $ldap_val)->first();
+                      if (!$phonenum) {
+                          $this->createNewPhonenum($phonenum, 'employe', $employe->id);
+                      }
                   } elseif ($column === "thumbnailphoto") {
                       // photo de profil
                       if ($column === "thumbnailphoto") {
