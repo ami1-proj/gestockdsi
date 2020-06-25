@@ -151,13 +151,13 @@ trait LdapConnectTrait {
           foreach ($userimported->getLdapColumns() as $column) {
               $ldap_val = $userldap->getFirstAttribute($column);
               if ($ldap_val) {
-                  if ($column == "cn") {
+                  if ($column === "cn") {
                       // nom Complet
                       $employe->nom_complet = $ldap_val;
-                  } elseif ($column == "sn") {
+                  } elseif ($column === "sn") {
                       // nom de famille
                       $employe->nom = ucwords($ldap_val);
-                  } elseif ($column == "title") {
+                  } elseif ($column === "title") {
                       // fonction employe
                       /*$fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $ldap_val . '%')->first();
                       if (!$fonctionemploye) {
@@ -168,21 +168,21 @@ trait LdapConnectTrait {
                           ]);
                       }
                       $employe->fonction_employe_id = $fonctionemploye->id;*/
-                  } elseif ($column == "distinguishedname") {
+                  } elseif ($column === "distinguishedname") {
                       // infos complets de l employé
                       /*$dpt_tree = str_replace("CN=" . $username . ",", "", $ldap_val);
                       $dpt = $this->parseDepartementTree($dpt_tree);
                       $employe->departement_id = $dpt->id;*/
-                  } elseif ($column == "name") {
+                  } elseif ($column === "name") {
                       // nom de famille
                       $employe->nom = ucwords($ldap_val);
-                  } elseif ($column == "mail") {
+                  } elseif ($column === "mail") {
                       // adresse email
                       /*$email = Adresseemail::where('email', $ldap_val)->first();
                       if (!$email) {
                           $this->createNewAdresseemail($email, '', $employe->id);
                       }*/
-                  } elseif ($column == "thumbnailphoto") {
+                  } elseif ($column === "thumbnailphoto") {
                       // photo de profil
                       $employe->thumbnailphoto = $ldap_val;
                   }

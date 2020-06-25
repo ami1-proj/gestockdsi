@@ -21,7 +21,9 @@ class Ldapimport extends Model
         $ldap_cols = [];
         foreach ($this->getTableColumns() as $col) {
             if (substr($col, 0, 5) === "ldap_") {
-                $ldap_cols[] = str_replace($col, "", "ldap_");
+                if ($col !== "ldap_thumbnailphoto") {
+                    $ldap_cols[] = str_replace("ldap_", "", $col);
+                }
             }
         }
         return $ldap_cols;
