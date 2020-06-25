@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EtatCommandeSeeder::class);
         $this->call(TypeArticleSeeder::class);
         $this->call(MarqueArticleSeeder::class);
-        $this->call(FonctionEmployeSeeder::class);
+        //$this->call(FonctionEmployeSeeder::class);
 
         $this->call(StockLieuSeeder::class);
         $this->call(StockSeeder::class);
@@ -30,6 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AffectationSeeder::class);
 
         $this->call(TypeDepartementSeeder::class);
-        $this->call(DepartementSeeder::class);
+        //$this->call(DepartementSeeder::class);
     }
 }

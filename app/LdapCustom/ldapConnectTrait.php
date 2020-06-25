@@ -9,6 +9,7 @@ use App\Employe;
 use App\FonctionEmploye;
 use App\Ldapimport;
 use App\Phonenum;
+use App\Statut;
 use App\TypeDepartement;
 use App\Traits\AdresseemailTrait;
 use App\Traits\PhonenumTrait;
@@ -156,7 +157,7 @@ trait LdapConnectTrait {
       if (! $employe) {
           $employe = Employe::create([
               'objectguid' => $userimported->objectguid,
-              'statut_id' => 1,
+              'statut_id' => Statut::actif()->first()->id,
           ]);
       }
 
@@ -177,7 +178,7 @@ trait LdapConnectTrait {
                           $fonctionemploye = FonctionEmploye::create([
                               'intitule' => $ldap_val,
                               'description' => $ldap_val,
-                              'statut_id' => 1,
+                              'statut_id' => Statut::actif()->first()->id,
                           ]);
                       }
                       $employe->fonction_employe_id = $fonctionemploye->id;
@@ -229,7 +230,7 @@ trait LdapConnectTrait {
                 $curr_dept = Departement::create([
                     'intitule' => $dept,
                     'description' => $dept,
-                    'statut_id' => 1,
+                    'statut_id' => Statut::actif()->first()->id,
                 ]);
                 // Recherche du type de dépertement en fonction de l'intitulé
                 $type_dpt_id = $this->parseDepartementType($dept);
