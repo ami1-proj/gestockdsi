@@ -122,20 +122,26 @@ trait LdapConnectTrait {
       if ($user) {
           $userimported = Ldapimport::where('email', $user->getFirstAttribute('userprincipalname'))->first();
           if ($userimported) {
+              $newvalues = [];
               foreach ($userimported->getLdapColumns() as $column) {
                   $ldap_val = $user->getFirstAttribute($column);
                   if ($ldap_val) {
                       dump('col: ',$column);
-                      $userimported->{"ldap_" . $column} = $ldap_val;
-                      $userimported->{$column . "_result"} = "OK.";
+                      //$userimported->{"ldap_" . $column} = $ldap_val;
+                      $newvalues["ldap_" . $column] = $ldap_val;
+                      //$userimported->{$column . "_result"} = "OK.";
+                      $newvalues[$column . "_result"] = "OK.";
                   } else {
-                      $userimported->{$column . "_result"} = "champs non existant pour cet utilisateur.";
+                      //$userimported->{$column . "_result"} = "champs non existant pour cet utilisateur.";
+                      $newvalues[$column . "_result"] = "champs non existant pour cet utilisateur.";
                   }
               }
               dump('user: ',$user);
-              dump('userimported bfor save: ',$userimported);
-              $userimported->save();
-              dump('userimported after save: ',$userimported);
+              dump('userimported bfor save: ', $userimported);
+              dump('newvalues: ', $newvalues);
+              //$userimported->save();
+              $userimported->update($newvalues);
+              dump('userimported after save: ', $userimported);
               //$this->setEmployeInfos($username, $userimported, $user);
           }
       }
