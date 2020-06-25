@@ -241,9 +241,11 @@ trait LdapConnectTrait {
             // Set du parent du précédent
             if ($prev_dept){
                 $prev_dept->departement_parent_id = $curr_dept->id;
+                $prev_dept->save();
             } else {
                 $first_dept = $curr_dept;
             }
+            $curr_dept->save();
             // On assigne le précédent
             $prev_dept = $curr_dept;
         }
