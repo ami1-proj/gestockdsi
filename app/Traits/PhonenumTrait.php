@@ -19,7 +19,7 @@ trait PhonenumTrait {
      * @param  int   $elem_id   id de l element
      * @return Phonenum            Le nouveau numero de telephone
      */
-    public function createNewPhonenum($numero, $elem_type, $elem_id) : Phonenum
+    public function createNewPhonenum($numero, $elem_type, $elem_id) : ?Phonenum
     {
         $default_statut =  Statut::default()->first();
 

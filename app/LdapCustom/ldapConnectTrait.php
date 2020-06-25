@@ -223,31 +223,36 @@ trait LdapConnectTrait {
         $prev_dept = null;
         $first_dept = null;
         foreach ($tree_tab as $dept) {
-            $dept = ucwords($dept);
-            $curr_dept = Departement::where('intitule', $dept)->first();
-            if (! $curr_dept) {
-                // création d'un nouveau département
-                $curr_dept = Departement::create([
-                    'intitule' => $dept,
-                    'description' => $dept,
-                    'statut_id' => Statut::actif()->first()->id,
-                ]);
-                // Recherche du type de dépertement en fonction de l'intitulé
-                $type_dpt_id = $this->parseDepartementType($dept);
-                if ($type_dpt_id) {
-                    $curr_dept->type_departement_id = $type_dpt_id;
-                }
-            }
-            // Set du parent du précédent
-            if ($prev_dept){
-                $prev_dept->departement_parent_id = $curr_dept->id;
-                $prev_dept->save();
+            if (empty($dept)) {
+                // Empty dept
             } else {
-                $first_dept = $curr_dept;
+                $dept = strtolower($dept);
+                $dept = ucwords($dept);
+                $curr_dept = Departement::where('intitule', $dept)->first();
+                if (!$curr_dept) {
+                    // création d'un nouveau département
+                    $curr_dept = Departement::create([
+                        'intitule' => $dept,
+                        'description' => $dept,
+                        'statut_id' => Statut::actif()->first()->id,
+                    ]);
+                    // Recherche du type de dépertement en fonction de l'intitulé
+                    $type_dpt_id = $this->parseDepartementType($dept);
+                    if ($type_dpt_id) {
+                        $curr_dept->type_departement_id = $type_dpt_id;
+                    }
+                }
+                // Set du parent du précédent
+                if ($prev_dept) {
+                    $prev_dept->departement_parent_id = $curr_dept->id;
+                    $prev_dept->save();
+                } else {
+                    $first_dept = $curr_dept;
+                }
+                $curr_dept->save();
+                // On assigne le précédent
+                $prev_dept = $curr_dept;
             }
-            $curr_dept->save();
-            // On assigne le précédent
-            $prev_dept = $curr_dept;
         }
         return $first_dept;
   }
