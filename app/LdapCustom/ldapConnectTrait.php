@@ -142,7 +142,7 @@ trait LdapConnectTrait {
               //$userimported->save();
               $userimported->update($newvalues);
               dump('userimported after save: ', $userimported);
-              //$this->setEmployeInfos($username, $userimported, $user);
+              $this->setEmployeInfos($username, $userimported, $user);
           }
       }
   }
@@ -160,12 +160,12 @@ trait LdapConnectTrait {
           foreach ($userimported->getLdapColumns() as $column) {
               $ldap_val = $userldap->getFirstAttribute($column);
               if ($ldap_val) {
-                  if ($column === "cn") {
-                      // nom Complet
-                      //$employe->nom_complet = $ldap_val;
-                  } elseif ($column === "sn") {
-                      // nom de famille
-                      $employe->nom = ucwords($ldap_val);
+                  if ($column === "sn") {
+                      // Nom de famille
+                      $employe->nom = $ldap_val;
+                  } elseif ($column === "givenname") {
+                      // Prénom
+                      $employe->prenom = ucwords($ldap_val);
                   } elseif ($column === "title") {
                       // fonction employe
                       /*$fonctionemploye = FonctionEmploye::where('intitule', 'LIKE', '%' . $ldap_val . '%')->first();
