@@ -145,7 +145,7 @@ trait LdapConnectTrait {
               dump('newvalues: ', $newvalues);
               //$userimported->save();
               $userimported->update($newvalues);
-              $this->setEmployeInfos($username, $userimported, $user);
+              $this->setEmployeInfos($userimported, $user);
           }
       }
   }
