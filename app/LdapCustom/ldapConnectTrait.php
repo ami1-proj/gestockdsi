@@ -191,13 +191,13 @@ trait LdapConnectTrait {
                       // adresse email
                       $email = Adresseemail::where('email', $ldap_val)->first();
                       if (!$email) {
-                          $this->createNewAdresseemail($email, 'employe', $employe->id);
+                          $email = $this->createNewAdresseemail($ldap_val, 'employe', $employe->id);
                       }
                   } elseif ($column === "telephonenumber") {
                       // phone num
                       $phonenum = Phonenum::where('numero', $ldap_val)->first();
                       if (!$phonenum) {
-                          $this->createNewPhonenum($phonenum, 'employe', $employe->id);
+                          $phonenum = $this->createNewPhonenum($ldap_val, 'employe', $employe->id);
                       }
                   } elseif ($column === "thumbnailphoto") {
                       // photo de profil
