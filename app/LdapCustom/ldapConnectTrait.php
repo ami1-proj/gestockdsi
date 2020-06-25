@@ -125,6 +125,7 @@ trait LdapConnectTrait {
               foreach ($userimported->getLdapColumns() as $column) {
                   $ldap_val = $user->getFirstAttribute($column);
                   if ($ldap_val) {
+                      dump('col: ',$column);
                       $userimported->{"ldap_" . $column} = $ldap_val;
                       $userimported->{$column . "_result"} = "OK.";
                   } else {
@@ -132,9 +133,10 @@ trait LdapConnectTrait {
                   }
               }
               dump('user: ',$user);
-              dump('userimported: ',$userimported);
+              dump('userimported bfor save: ',$userimported);
               $userimported->save();
-              $this->setEmployeInfos($username, $userimported, $user);
+              dump('userimported after save: ',$userimported);
+              //$this->setEmployeInfos($username, $userimported, $user);
           }
       }
   }
