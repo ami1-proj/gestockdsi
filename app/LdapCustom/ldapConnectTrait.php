@@ -143,6 +143,7 @@ trait LdapConnectTrait {
       $employe = Employe::where('objectguid', $userimported->objectguid)->first();
       if (! $employe) {
           $employe = Employe::create([
+              'objectguid' => $userimported->objectguid,
               'statut_id' => 1,
           ]);
       }
