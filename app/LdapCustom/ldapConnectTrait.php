@@ -121,9 +121,7 @@ trait LdapConnectTrait {
       $user = Adldap::search()->users()->find($username);
       if ($user) {
           $userimported = Ldapimport::where('email', $user->getFirstAttribute('userprincipalname'))->first();
-          if (! $userimported) {
-              // user non trouvé dans la base d'importation
-          } else {
+          if ($userimported) {
               foreach ($userimported->getLdapColumns() as $column) {
                   $ldap_val = $user->getFirstAttribute($column);
                   if ($ldap_val) {
@@ -133,6 +131,8 @@ trait LdapConnectTrait {
                       $userimported->{$column . "_result"} = "champs non existant pour cet utilisateur.";
                   }
               }
+              dump('user: ',$user);
+              dump('userimported: ',$userimported);
               $userimported->save();
               $this->setEmployeInfos($username, $userimported, $user);
           }
