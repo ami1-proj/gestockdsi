@@ -91,11 +91,13 @@
       </p>
 
       <div class="form-group row {{ $errors->has('articles_disponibles') ? 'has-error' : '' }}">
+        @if(isset($articles_disponibles))
         <select class="select2 form-control" name="articles_disponibles_selected[]" multiple="multiple" id="articles_disponibles">
           @foreach($articles_disponibles as $id => $display)
             <option value="{{ $id }}">{{ $display }}</option>
           @endforeach
         </select>
+        @endif
         <small class="text-danger">{{ $errors->has('articles_disponibles') ? $errors->first('articles_disponibles') : '' }}</small>
       </div>
 

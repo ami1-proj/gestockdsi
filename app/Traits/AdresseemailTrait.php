@@ -10,12 +10,12 @@ trait AdresseemailTrait {
 
     /**
      * Cree une nouvelle adresse e-mail et l'associe à un element (Fournissur ou Employe)
-     * @param  int   $email    Numero ede telephone
+     * @param  strin   $email    Adresse mail
      * @param  string   $elem_type Type d element (fournisseur, employe)
      * @param  int   $elem_id   id de l element
      * @return Adresseemail            Le nouveau numero de telephone
      */
-    public function createNewAdresseemail($email, $elem_type, $elem_id) : Adresseemail
+    public function createNewAdresseemail($email, $elem_type, $elem_id) : ?Adresseemail
     {
         if (empty($email)) {
           return null;

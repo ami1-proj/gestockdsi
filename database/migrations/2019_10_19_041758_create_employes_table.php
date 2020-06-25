@@ -19,11 +19,13 @@ class CreateEmployesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('nom')->comment('nom de l employe');
-            $table->string('matricule')->comment('matricule de l employe');
+            $table->string('matricule')->nullable()->comment('matricule de l employe');
             $table->string('prenom')->nullable()->comment('prenom de l employe');
             $table->string('nom_complet')->nullable()->comment('nom complet de l employe');
 
+            $table->string('objectguid')->nullable()->comment('UID');
             $table->string('adresse')->nullable()->comment('adresse de l employe');
+            $table->string('thumbnailphoto')->nullable()->comment('photo de profil de l employe');
 
             $table->unsignedBigInteger('fonction_employe_id')->nullable()->comment('reference de la fonction de l employe');
             $table->foreign('fonction_employe_id')->references('id')->on('fonction_employes')->onDelete('set null');
