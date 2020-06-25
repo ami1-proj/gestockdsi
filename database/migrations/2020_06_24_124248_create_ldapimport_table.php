@@ -78,7 +78,7 @@ class CreateLdapimportTable extends Migration
             $table->string('ldap_mail')->nullable()->comment('adresse e-mail');
             $table->string('mail_result')->nullable()->comment('ldap_mail result');
 
-            $table->string('ldap_thumbnailphoto')->nullable()->comment('photo de profil');
+            $table->binary('ldap_thumbnailphoto')->nullable()->comment('photo de profil');
             $table->string('thumbnailphoto_result')->nullable()->comment('ldap_thumbnailphoto result');
 
             $table->timestamps();

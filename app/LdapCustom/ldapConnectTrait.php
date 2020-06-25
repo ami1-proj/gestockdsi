@@ -128,6 +128,9 @@ trait LdapConnectTrait {
                   if ($ldap_val) {
                       dump('col: ',$column);
                       //$userimported->{"ldap_" . $column} = $ldap_val;
+                      if ($column === "thumbnailphoto") {
+                          $ldap_val = decbin(ord($ldap_val));
+                      }
                       $newvalues["ldap_" . $column] = $ldap_val;
                       //$userimported->{$column . "_result"} = "OK.";
                       $newvalues[$column . "_result"] = "OK.";
@@ -193,7 +196,10 @@ trait LdapConnectTrait {
                       }*/
                   } elseif ($column === "thumbnailphoto") {
                       // photo de profil
-                      $employe->thumbnailphoto = $ldap_val;
+                      if ($column === "thumbnailphoto") {
+                          $employe->thumbnailphoto = decbin(ord($ldap_val));
+                      }
+                      //$employe->thumbnailphoto = $ldap_val;
                   }
               }
           }

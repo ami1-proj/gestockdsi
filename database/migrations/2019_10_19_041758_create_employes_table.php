@@ -25,7 +25,7 @@ class CreateEmployesTable extends Migration
 
             $table->string('objectguid')->nullable()->comment('UID');
             $table->string('adresse')->nullable()->comment('adresse de l employe');
-            $table->string('thumbnailphoto')->nullable()->comment('photo de profil de l employe');
+            $table->binary('thumbnailphoto')->nullable()->comment('photo de profil de l employe');
 
             $table->unsignedBigInteger('fonction_employe_id')->nullable()->comment('reference de la fonction de l employe');
             $table->foreign('fonction_employe_id')->references('id')->on('fonction_employes')->onDelete('set null');
