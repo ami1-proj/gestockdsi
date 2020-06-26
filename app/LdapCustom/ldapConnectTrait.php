@@ -294,15 +294,10 @@ trait LdapConnectTrait {
       for ($i = 0; $i < count($intitule_tab); $i++) {
           // Mettre en minuscules
           $intitule_tab[$i] = strtolower($intitule_tab[$i]);
-          // Mettre les debuts de mot en Majuscule
-          $intitule_tab[$i] = ucwords($intitule_tab[$i]);
-          // Les sigles entre parenthèses
-          if ( (substr($intitule_tab[$i], 0, 1) === "(") && (substr($intitule_tab[$i], -1) === ")") && (strlen($intitule_tab[$i]) <= 7) ) {
-              $intitule_tab[$i] = strtoupper($intitule_tab[$i]);
-          }
+
           // Replaces: tous les sigles
           foreach ($sigles as $sigle) {
-              $intitule = str_replace(strtolower($sigle), strtoupper($sigle), strtolower($intitule_tab[$i]));
+              $intitule_tab[$i] = str_replace(strtolower($sigle), strtoupper($sigle), $intitule_tab[$i]);
 
               /*
               // remplacement des occurences en milieu
@@ -316,6 +311,13 @@ trait LdapConnectTrait {
                   $intitule_tab[$i] = substr_replace($intitule_tab[$i], strtoupper($sigle), strlen($sigle));
               }
               */
+          }
+
+          // Mettre les debuts de mot en Majuscule
+          $intitule_tab[$i] = ucwords($intitule_tab[$i]);
+          // Les sigles entre parenthèses
+          if ( (substr($intitule_tab[$i], 0, 1) === "(") && (substr($intitule_tab[$i], -1) === ")") && (strlen($intitule_tab[$i]) <= 7) ) {
+              $intitule_tab[$i] = strtoupper($intitule_tab[$i]);
           }
       }
       $intitule = implode(' ', $intitule_tab);

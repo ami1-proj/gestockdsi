@@ -5,4 +5,4 @@
 <td>
 <a href="{{ $currval->employeResponsable ? action('EmployeController@show', $currval->employeResponsable) : '#' }}">{{ $currval->employeResponsable ? $currval->employeResponsable->nom_complet : '' }}</a>
 </td>
-<td>{{ $currval->typedepartement->intitule }}</td>
+<td>{{ $currval->typedepartement->intitule ?? '' }}</td>

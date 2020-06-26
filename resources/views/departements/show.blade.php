@@ -24,7 +24,7 @@
         <dd class="col-sm-9">{{ $departement->employeResponsable ? $departement->employeResponsable->nom_complet : '' }}</dd>
 
         <dt class="col-sm-3">Type</dt>
-        <dd class="col-sm-9">{{ $departement->typedepartement->intitule }}</dd>
+        <dd class="col-sm-9">{{ $departement->typedepartement->intitule ?? '' }}</dd>
 
         <dt class="col-sm-3">Statut</dt>
         <dd class="col-sm-9">
