@@ -289,10 +289,16 @@ trait LdapConnectTrait {
           $intitule_tab[$i] = ucwords($intitule_tab[$i]);
           // Les sigles entre parenthèses
           if ( (substr($intitule_tab[$i], 0, 1) === "(") && (substr($intitule_tab[$i], -1) === ")") && (strlen($intitule_tab[$i]) <= 7) ) {
-              $intitule_tab[$i] = strtolower($intitule_tab[$i]);
+              $intitule_tab[$i] = strtoupper($intitule_tab[$i]);
           }
           // Replaces: tous les rh
           $intitule = str_replace([" rh ", " Rh "], " RH ", $intitule);
+          if ( (substr($intitule_tab[$i], -2) === "Rh") || (substr($intitule_tab[$i], -2) === "rh") ) {
+              $intitule_tab[$i] = substr_replace($intitule_tab[$i], 'RH', -2);
+          }
+          if ( (substr($intitule_tab[$i], 0, 2) === "Rh") || (substr($intitule_tab[$i], 0, 2) === "rh") ) {
+              $intitule_tab[$i] = substr_replace($intitule_tab[$i], 'RH', 2);
+          }
       }
       $intitule = implode(' ', $intitule_tab);
       return $intitule;
