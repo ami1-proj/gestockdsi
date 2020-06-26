@@ -298,7 +298,6 @@ trait LdapConnectTrait {
           // Replaces: tous les sigles
           foreach ($sigles as $sigle) {
               $intitule_tab[$i] = str_replace(strtolower($sigle), strtoupper($sigle), $intitule_tab[$i]);
-
               /*
               // remplacement des occurences en milieu
               $intitule = str_replace([" ". strtolower($sigle) ." ", " ". ucfirst($sigle) ." "], " ". strtoupper($sigle) ." ", $intitule);
