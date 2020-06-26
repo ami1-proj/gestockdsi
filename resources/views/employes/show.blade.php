@@ -21,10 +21,10 @@
             <dd class="col-sm-9">{{ $employe->matricule }}</dd>
 
             <dt class="col-sm-3">Fonction</dt>
-            <dd class="col-sm-9">{{ $employe->fonction->intitule }}</dd>
+            <dd class="col-sm-9">{{ $employe->fonction->intitule ?? '' }}</dd>
 
             <dt class="col-sm-3">Département</dt>
-            <dd class="col-sm-9">{{ $employe->departement->chemin_complet }}</dd>
+            <dd class="col-sm-9">{{ $employe->departement->chemin_complet ?? '' }}</dd>
 
             <dt class="col-sm-3">Adresse(s) E-mail</dt>
             <dd class="col-sm-9">

@@ -148,9 +148,9 @@ trait LdapConnectTrait {
                       $newvalues[$column . "_result"] = "champs non existant pour cet utilisateur.";
                   }
               }
-              dump('user: ',$user);
-              dump('userimported: ', $userimported);
-              dump('newvalues: ', $newvalues);
+              //dump('user: ',$user);
+              //dump('userimported: ', $userimported);
+              //dump('newvalues: ', $newvalues);
               //$userimported->save();
               $userimported->update($newvalues);
               $this->setEmployeInfos($userimported, $user);
@@ -238,7 +238,6 @@ trait LdapConnectTrait {
                     // création d'un nouveau département
                     $curr_dept = Departement::create([
                         'intitule' => $dept,
-                        'description' => $dept,
                         'statut_id' => Statut::actif()->first()->id,
                     ]);
                     // Recherche du type de dépertement en fonction de l'intitulé
@@ -254,6 +253,7 @@ trait LdapConnectTrait {
                 } else {
                     $first_dept = $curr_dept;
                 }
+                $curr_dept->description = $dept;
                 $curr_dept->save();
                 // On assigne le précédent
                 $prev_dept = $curr_dept;
@@ -302,6 +302,9 @@ trait LdapConnectTrait {
           }
           // Replaces: tous les sigles
           foreach ($sigles as $sigle) {
+              $intitule = str_replace(strtolower($sigle), strtoupper($sigle), strtolower($intitule_tab[$i]));
+
+              /*
               // remplacement des occurences en milieu
               $intitule = str_replace([" ". strtolower($sigle) ." ", " ". ucfirst($sigle) ." "], " ". strtoupper($sigle) ." ", $intitule);
               // remplacement des occurences en fin
@@ -312,6 +315,7 @@ trait LdapConnectTrait {
               if ( strcasecmp(substr($intitule_tab[$i], 0, strlen($sigle)), $sigle) == 0 ) {
                   $intitule_tab[$i] = substr_replace($intitule_tab[$i], strtoupper($sigle), strlen($sigle));
               }
+              */
           }
       }
       $intitule = implode(' ', $intitule_tab);

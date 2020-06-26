@@ -7,8 +7,8 @@
   <a href="{{ $currval->departement ? action('DepartementController@show', $currval->departement) : '#' }}">{{ $currval->departement ? $currval->departement->chemin_complet : '' }}</a>
 </td>
 <td style="width:1px; whithe-space:nowrap">
-  <span class="badge label-primary">{{ $currval->phonenums->first()->numero }}</span>
+  <span class="badge label-primary">{{ $currval->phonenums->first() ? $currval->phonenums->first()->numero : '' }}</span>
 </td>
 <td style="width:1px; whithe-space:nowrap">
-  <span class="badge label-primary">{{ $currval->adresseemails->first()->email }}</span>
+  <span class="badge label-primary">{{ $currval->adresseemails->first() ? $currval->adresseemails->first()->email : '' }}</span>
 </td>
