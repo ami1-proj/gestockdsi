@@ -109,11 +109,19 @@ trait LdapConnectTrait {
       // Finding a user:
       //$user = Adldap::search()->users()->find('jude');
       //dd($user);
-      $this->adldapSyncUser("Jude Parfait NGOM NZE");
+      /*$this->adldapSyncUser("Jude Parfait NGOM NZE");
       $this->adldapSyncUser("Isabelle BULABULA Èp. NDAYWEL");
       $this->adldapSyncUser("Bernice MINDILA MANDOUKOU");
       $this->adldapSyncUser("Camille LEYOUNGASSA");
-      $this->adldapSyncUser("Agnes Grezillia ENAME OBIANG");
+      $this->adldapSyncUser("Agnes Grezillia ENAME OBIANG");*/
+      $this->adldapSyncUsers();
+  }
+
+  public function adldapSyncUsers() {
+      $usersimported = Ldapimport::get();
+      foreach ($usersimported as $userimported) {
+          $this->adldapSyncUser($userimported->name);
+      }
   }
 
     /**
@@ -280,6 +288,7 @@ trait LdapConnectTrait {
   }
 
   private function formatDepartementIntitule($intitule) {
+      $sigles = ['gt','rh','si','it'];
       $intitule_tab = explode(' ', $intitule);
 
       for ($i = 0; $i < count($intitule_tab); $i++) {
@@ -291,13 +300,18 @@ trait LdapConnectTrait {
           if ( (substr($intitule_tab[$i], 0, 1) === "(") && (substr($intitule_tab[$i], -1) === ")") && (strlen($intitule_tab[$i]) <= 7) ) {
               $intitule_tab[$i] = strtoupper($intitule_tab[$i]);
           }
-          // Replaces: tous les rh
-          $intitule = str_replace([" rh ", " Rh "], " RH ", $intitule);
-          if ( (substr($intitule_tab[$i], -2) === "Rh") || (substr($intitule_tab[$i], -2) === "rh") ) {
-              $intitule_tab[$i] = substr_replace($intitule_tab[$i], 'RH', -2);
-          }
-          if ( (substr($intitule_tab[$i], 0, 2) === "Rh") || (substr($intitule_tab[$i], 0, 2) === "rh") ) {
-              $intitule_tab[$i] = substr_replace($intitule_tab[$i], 'RH', 2);
+          // Replaces: tous les sigles
+          foreach ($sigles as $sigle) {
+              // remplacement des occurences en milieu
+              $intitule = str_replace([" ". strtolower($sigle) ." ", " ". ucfirst($sigle) ." "], " ". strtoupper($sigle) ." ", $intitule);
+              // remplacement des occurences en fin
+              if ( strcasecmp(substr($intitule_tab[$i], -strlen($sigle)), $sigle) == 0 ) {
+                  $intitule_tab[$i] = substr_replace($intitule_tab[$i], strtoupper($sigle), -strlen($sigle));
+              }
+              // remplacement des occurences en début
+              if ( strcasecmp(substr($intitule_tab[$i], 0, strlen($sigle)), $sigle) == 0 ) {
+                  $intitule_tab[$i] = substr_replace($intitule_tab[$i], strtoupper($sigle), strlen($sigle));
+              }
           }
       }
       $intitule = implode(' ', $intitule_tab);
