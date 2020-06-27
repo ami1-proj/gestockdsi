@@ -51,6 +51,8 @@
      * @property string|null $mail_result
      * @property string|null $thumbnailphoto
      * @property string|null $thumbnailphoto_result
+     * @property \Illuminate\Support\Carbon $created_at
+     * @property \Illuminate\Support\Carbon $updated_at
      */
     class LdapAccount extends Model
     {
@@ -66,8 +68,9 @@
 
         public function getLdapColumns() {
             $ldap_cols = [];
+            $no_ldap_cols = ['id','objectguid','created_at','updated_at'];
             foreach ($this->getTableColumns() as $col) {
-                if (substr($col,-7) !== "_result" && $col !== "objectguid") {
+                if ( substr($col,-7) !== "_result" && ( ! in_array($col, $no_ldap_cols) ) ) {
                     $ldap_cols[] = $col;
                 }
             }
