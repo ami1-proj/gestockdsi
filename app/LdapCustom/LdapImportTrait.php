@@ -268,14 +268,16 @@ trait LdapImportTrait {
      */
     private function createUser(LdapAccount $ldapaccount) {
         if (! User::where('ldapaccount_id', $ldapaccount->id)->first()) {
-            User::create([
-                'name' => $ldapaccount->name,
-                'email' => $ldapaccount->mail,
-                'is_ldap' => true,
-                'ldapaccount_id' => $ldapaccount->id,
-                'statut_id' => Statut::inactif()->first()->id,
-                'password' => bcrypt('gestocksecret')
-            ]);
+            if (! User::where('email', $ldapaccount->mail)->first()) {
+                User::create([
+                    'name' => $ldapaccount->name,
+                    'email' => $ldapaccount->mail,
+                    'is_ldap' => true,
+                    'ldapaccount_id' => $ldapaccount->id,
+                    'statut_id' => Statut::inactif()->first()->id,
+                    'password' => bcrypt('gestocksecret')
+                ]);
+            }
         }
     }
 }
