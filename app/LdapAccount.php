@@ -68,10 +68,11 @@
 
         public function getLdapColumns() {
             $ldap_cols = [];
-            $no_ldap_cols = ['id','objectguid','created_at','updated_at'];
+            //$no_ldap_cols = ['id','objectguid','created_at','updated_at'];
             foreach ($this->getTableColumns() as $col) {
-                if ( substr($col,-7) !== "_result" && ( ! in_array($col, $no_ldap_cols) ) ) {
-                    $ldap_cols[] = $col;
+                //if ( substr($col,-7) !== "_result" && ( ! in_array($col, $no_ldap_cols) ) ) {
+                if ( substr($col,-7) !== "_result" ) {
+                    $ldap_cols[] = str_replace("_result", "", $col);
                 }
             }
             return $ldap_cols;
