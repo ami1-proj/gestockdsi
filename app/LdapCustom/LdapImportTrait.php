@@ -30,10 +30,10 @@ trait LdapImportTrait {
      */
     public function importLdapAccounts() {
         // Tronquage de la table d'importation
-        DB::table('ldapaccountimports')->truncate();
+        //DB::table('ldapaccountimports')->truncate();
 
         // Exécution de la commande d'importation
-        Artisan::call('adldap:import', ['--model' => "\App\LdapAccountImport", '--no-interaction']);
+        //Artisan::call('adldap:import', ['--model' => "\App\LdapAccountImport", '--no-interaction']);
 
         // Traitement des lignes importées
         $accountsimported = LdapAccountImport::get();

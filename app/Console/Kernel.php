@@ -26,6 +26,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // Import LDAP users hourly.
+        $schedule->command('adldap:import', [
+            '--model' => "\App\LdapAccountImport",
+            '--no-interaction',
+        ])->hourly();
     }
 
     /**
