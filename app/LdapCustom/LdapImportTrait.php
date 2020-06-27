@@ -50,7 +50,7 @@ trait LdapImportTrait {
     public function adldapSyncUser(String $username, $objectguid = "") {
         $userldap = Adldap::search()->users()->find($username);
         if ($userldap) {
-            dump('1: $userldap', $userldap);
+            //dump('1: $userldap', $userldap);
             $ldapaccount = LdapAccount::where('samaccountname', $userldap->getFirstAttribute('samaccountname'))->first();
             if (! $ldapaccount) {
                 $ldapaccount = new LdapAccount();
@@ -58,7 +58,7 @@ trait LdapImportTrait {
                     $ldapaccount->objectguid = $objectguid;
                 }
             }
-            dump('2: $ldapaccount', $ldapaccount);
+            //dump('2: $ldapaccount', $ldapaccount);
             $newvalues = [];
             foreach ($ldapaccount->getLdapColumns() as $column) {
                 $ldap_val = $userldap->getFirstAttribute($column);
@@ -78,7 +78,7 @@ trait LdapImportTrait {
             //dump('userimported: ', $userimported);
             //dump('newvalues: ', $newvalues);
             $ldapaccount->save();
-            dump('3: $ldapaccount->save()', $ldapaccount);
+            //dump('3: $ldapaccount->save()', $ldapaccount);
             //$ldapaccount->update($newvalues);
             $this->setEmployeInfos($ldapaccount, $userldap);
             $this->createUser($ldapaccount);
@@ -237,7 +237,9 @@ trait LdapImportTrait {
 
             // Replaces: tous les sigles
             foreach ($sigles as $sigle) {
-                $intitule_tab[$i] = str_replace(strtolower($sigle), strtoupper($sigle), $intitule_tab[$i]);
+                if (strlen($intitule_tab[$i]) == strlen($sigle)) {
+                    $intitule_tab[$i] = str_replace(strtolower($sigle), strtoupper($sigle), $intitule_tab[$i]);
+                }
             }
 
             // Mettre les debuts de mot en Majuscule
