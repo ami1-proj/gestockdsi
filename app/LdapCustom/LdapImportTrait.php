@@ -33,7 +33,7 @@ trait LdapImportTrait {
         DB::table('ldapaccountimports')->truncate();
 
         // Exécution de la commande d'importation
-        Artisan::call('adldap:import', ['model' => '\App\LdapAccountImport', '--no-interaction']);
+        Artisan::call('adldap:import', ['--model "\App\LdapAccountImport" --no-interaction']);
 
         // Traitement des lignes importées
         $accountsimported = LdapAccountImport::get();
