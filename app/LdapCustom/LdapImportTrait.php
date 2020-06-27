@@ -14,6 +14,7 @@ use App\Phonenum;
 use App\Statut;
 use App\TypeDepartement;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
@@ -117,14 +118,18 @@ trait LdapImportTrait {
                     } elseif ($column === "title") {
                         // fonction employe
                         $fonctionemploye = FonctionEmploye::where('slug', Str::slug($ldap_val))->first();
-                        if (!$fonctionemploye) {
-                            $fonctionemploye = FonctionEmploye::create([
+                        if (! $fonctionemploye) {
+                            $fonctionemploye_values = [
                                 'intitule' => $ldap_val,
                                 'description' => $ldap_val,
                                 'statut_id' => Statut::actif()->first()->id,
-                            ]);
+                            ];
+                            $validator = Validator::make($fonctionemploye_values, FonctionEmploye::createRules());
+                            if (! $validator->fails()) {
+                                $fonctionemploye = FonctionEmploye::create($fonctionemploye_values);
+                                $employe->fonction_employe_id = $fonctionemploye->id;
+                            }
                         }
-                        $employe->fonction_employe_id = $fonctionemploye->id;
                     } elseif ($column === "distinguishedname") {
                         // infos complets de l employé
                         $dpt_tree = str_replace("CN=" . $userldap->getFirstAttribute("cn"), "", $ldap_val);
@@ -273,14 +278,24 @@ trait LdapImportTrait {
     private function createUser(LdapAccount $ldapaccount) {
         if (! User::where('ldapaccount_id', $ldapaccount->id)->first()) {
             if (! User::where('email', $ldapaccount->mail)->first()) {
-                User::create([
+                if ($ldapaccount->mail) {
+                    $usermail = $ldapaccount->mail;
+                } else {
+                    $usermail = $ldapaccount->userprincipalname;
+                }
+                $uservalues = [
                     'name' => $ldapaccount->name,
-                    'email' => $ldapaccount->mail,
+                    'email' => $usermail,
                     'is_ldap' => true,
                     'ldapaccount_id' => $ldapaccount->id,
                     'statut_id' => Statut::inactif()->first()->id,
-                    'password' => bcrypt('gestocksecret')
-                ]);
+                    'password' => bcrypt('gestocksecret'),
+                    'confirm_password' => bcrypt('gestocksecret')
+                ];
+                $validator = Validator::make($uservalues, User::createRules());
+                if (! $validator->fails()) {
+                    User::create($uservalues);
+                }
             }
         }
     }

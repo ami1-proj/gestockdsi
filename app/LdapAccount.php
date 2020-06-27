@@ -49,6 +49,8 @@
      * @property string|null $samaccountname_result
      * @property string|null $mail
      * @property string|null $mail_result
+     * @property string|null $userprincipalname
+     * @property string|null $userprincipalname_result
      * @property string|null $thumbnailphoto
      * @property string|null $thumbnailphoto_result
      * @property \Illuminate\Support\Carbon $created_at

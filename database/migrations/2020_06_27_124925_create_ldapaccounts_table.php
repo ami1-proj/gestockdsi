@@ -73,6 +73,9 @@ class CreateLdapaccountsTable extends Migration
             $table->string('samaccountname')->nullable()->comment('login ldap');
             $table->string('samaccountname_result')->nullable()->comment('résultat samaccountname de la derniere importation');
 
+            $table->string('userprincipalname')->nullable()->comment('userprincipalname');
+            $table->string('userprincipalname_result')->nullable()->comment('résultat userprincipalname de la derniere importation');
+
             $table->string('mail')->nullable()->comment('adresse mail');
             $table->string('mail_result')->nullable()->comment('résultat mail de la derniere importation');
 
