@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('adldap:import', [
             '--model' => "\App\LdapAccountImport",
             '--no-interaction',
-        ])->everyMinute();
+        ])->daily();
     }
 
     /**
