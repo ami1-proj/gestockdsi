@@ -55,7 +55,7 @@
     class LdapAccount extends Model
     {
         protected $guarded = [];
-        protected $table = 'ldapaccouns';
+        protected $table = 'ldapaccounts';
 
         public function getTableColumns() {
             //$columns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
