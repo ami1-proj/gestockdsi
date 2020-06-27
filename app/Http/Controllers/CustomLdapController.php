@@ -12,7 +12,8 @@ class CustomLdapController extends Controller
 
     public function test()
     {
-    	$this->adldapGetUsers();
+    	$ldapuser = $this->ldapGetUserByName("Flore OWONDEAULT BERRE");
+    	dd($ldapuser);
     }
 
     public function sync() {

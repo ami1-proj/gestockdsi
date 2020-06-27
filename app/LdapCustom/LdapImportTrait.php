@@ -25,6 +25,10 @@ trait LdapImportTrait {
 
     use AdresseemailTrait, PhonenumTrait;
 
+    public function ldapGetUserByName($username) {
+        return Adldap::search()->users()->find($username);
+    }
+
     /**
      * Importe les comptes LDAP
      */
