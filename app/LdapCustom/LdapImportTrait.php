@@ -50,6 +50,7 @@ trait LdapImportTrait {
     public function adldapSyncUser(String $username, $objectguid = "") {
         $userldap = Adldap::search()->users()->find($username);
         if ($userldap) {
+            dump('1: $userldap', $userldap);
             $ldapaccount = LdapAccount::where('samaccountname', $userldap->getFirstAttribute('samaccountname'))->first();
             if (! $ldapaccount) {
                 $ldapaccount = new LdapAccount();
@@ -57,6 +58,7 @@ trait LdapImportTrait {
                     $ldapaccount->objectguid = $objectguid;
                 }
             }
+            dump('2: $ldapaccount', $ldapaccount);
             $newvalues = [];
             foreach ($ldapaccount->getLdapColumns() as $column) {
                 $ldap_val = $userldap->getFirstAttribute($column);
@@ -76,6 +78,7 @@ trait LdapImportTrait {
             //dump('userimported: ', $userimported);
             //dump('newvalues: ', $newvalues);
             $ldapaccount->save();
+            dump('3: $ldapaccount->save()', $ldapaccount);
             //$ldapaccount->update($newvalues);
             $this->setEmployeInfos($ldapaccount, $userldap);
             $this->createUser($ldapaccount);
