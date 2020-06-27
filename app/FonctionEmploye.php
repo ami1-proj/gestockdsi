@@ -3,8 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\This;
 
-
+/**
+ * Class FonctionEmploye
+ * @package App
+ *
+ * @property integer $id
+ * @property string $intitule
+ * @property string $slug
+ * @property string|null $description
+ * @property string|null $statut_id
+ * @property string|null $tags
+ */
 class FonctionEmploye extends AppBaseModel
 {
     protected $guarded = [];
@@ -95,5 +107,38 @@ class FonctionEmploye extends AppBaseModel
     public function employes()
     {
         return $this->hasMany('App\Employe', 'fonction_employe_id');
+    }
+
+    private function setSlug(){
+        $this->slug = Str::slug($this->intitule);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->setSlug();
+        });
+
+        self::created(function($model){
+            // ... code here
+        });
+
+        self::updating(function($model){
+            $model->setSlug();
+        });
+
+        self::updated(function($model){
+            // ... code here
+        });
+
+        self::deleting(function($model){
+            // ... code here
+        });
+
+        self::deleted(function($model){
+            // ... code here
+        });
     }
 }

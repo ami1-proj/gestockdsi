@@ -19,6 +19,7 @@ class CreateFonctionEmployesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('intitule')->comment('intitule de la fonction');
+            $table->string('slug')->unique()->comment('intitule de la fonction');
             $table->string('description')->nullable()->comment('description de la fonction');
 
             $table->unsignedBigInteger('statut_id')->nullable()->comment('reference du statut');

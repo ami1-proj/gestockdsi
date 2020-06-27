@@ -22,7 +22,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 
             $table->string('image')->nullable()->comment('Avatar de l utilisateur');
+
+            $table->boolean('is_local')->is_default(false)->comment('indique si le compte est locale');
+            $table->boolean('is_ldap')->is_default(false)->comment('indique si le compte est LDAP');
+
             $table->unsignedBigInteger('statut_id')->nullable()->comment('reference du statut');
+            $table->unsignedBigInteger('ldapaccount_id')->nullable()->comment('reference du compte LDAP');
 
             $table->timestamps();
         });

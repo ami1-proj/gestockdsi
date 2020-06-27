@@ -21,8 +21,11 @@
         	return view('tests.index');
    	})->name('tests');
 
+    Route::prefix('ldap')->group(function(){
+        Route::get('/test', 'CustomLdapController@test')->name('ldaptest');
+        Route::get('/sync', 'CustomLdapController@sync')->name('ldapsync');
+    });
 
-    Route::get('/ldaptest', 'CustomLdapController@test')->name('ldaptest');
 
     /**
      * Users & Roles

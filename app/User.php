@@ -14,6 +14,23 @@ use App\Traits\ObservantTrait;
 use App\Traits\StatutTrait;
 use App\Traits\RelationshipsTrait;
 
+/**
+ * Class User
+ * @package App
+ *
+ * @property integer $id
+ * @property string $name
+ * @property string $email
+ * @property \Illuminate\Support\Carbon $email_verified_at
+ * @property string $password
+ * @property string $image
+ * @property boolean $is_local
+ * @property boolean $is_ldap
+ * @property integer $statut_id
+ * @property integer $ldapaccount_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -110,6 +127,13 @@ class User extends Authenticatable
     }
     public static function validationMessages() {
       return [];
+    }
+
+    /**
+     * Renvoie le Compte LDAP du User.
+     */
+    public function ldapaccount() {
+        return $this->belongsTo('App\LdapAccount', 'ldapaccount_id');
     }
 
     /**

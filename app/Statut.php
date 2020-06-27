@@ -106,7 +106,7 @@ class Statut extends Model
         ->where('code', 'actif');
     }
 
-    public function scopeInActif($query) {
+    public function scopeInactif($query) {
       return $query
         ->where('code', 'inactif');
     }
