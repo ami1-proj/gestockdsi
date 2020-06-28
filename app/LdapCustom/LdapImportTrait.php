@@ -315,9 +315,10 @@ trait LdapImportTrait {
     private function logErrors($errors) {
         foreach ($errors->all() as $key => $message_arr) {
             \Log::info($key . " : ");
-            foreach ($message_arr as $message) {
+            \Log::info($message_arr);
+            /*foreach ($message_arr as $message) {
                 \Log::info($message);
-            }
+            }*/
         }
     }
 }
