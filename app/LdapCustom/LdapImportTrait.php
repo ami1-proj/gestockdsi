@@ -60,7 +60,7 @@ trait LdapImportTrait {
             $ldapaccount = LdapAccount::where('samaccountname', $userldap->getFirstAttribute('samaccountname'))->first();
             if (! $ldapaccount) {
                 $ldapaccount = new LdapAccount();
-                if ( is_null($accountimported) ) {
+                if (! is_null($accountimported) ) {
                     $ldapaccount->objectguid = $accountimported->objectguid;
                     $ldapaccount->email = $accountimported->email;
                     $ldapaccount->password = $accountimported->password;
