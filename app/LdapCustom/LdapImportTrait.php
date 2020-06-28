@@ -131,6 +131,9 @@ trait LdapImportTrait {
                             if (! $validator->fails()) {
                                 $fonctionemploye = FonctionEmploye::create($fonctionemploye_values);
                                 $employe->fonction_employe_id = $fonctionemploye->id;
+                            } else {
+                                \Log::info("FonctionEmploye " . $intitule_fonctionemploye->name . " NOT created!!!. validator->fails() : " . $validator->fails());
+                                $this->logErrors($validator);
                             }
                         }
                     } elseif ($column === "distinguishedname") {
@@ -286,13 +289,14 @@ trait LdapImportTrait {
                 } else {
                     $usermail = $ldapaccount->userprincipalname;
                 }
-                $role = RoleCustom::default()->first()->id;
+                $role = RoleCustom::default()->first();
                 $user_values = [
                     'name' => $ldapaccount->name,
                     'email' => $usermail,
                     'is_ldap' => true,
                     'ldapaccount_id' => $ldapaccount->id,
                     'statut_id' => Statut::inactif()->first()->id,
+                    'roles' => $role->toJson(),
                     'password' => 'gestocksecret',
                     'confirm_password' => 'gestocksecret'
                 ];
@@ -307,14 +311,14 @@ trait LdapImportTrait {
                     $user->assignRole([$role->id]);
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
-                    $errors = $validator->errors();
-                    $this->logErrors($errors);
+                    $this->logErrors($validator);
                 }
             }
         }
     }
 
-    private function logErrors($errors) {
+    private function logErrors($validator) {
+        $errors = $validator->errors();
         foreach ($errors->all() as $key => $message) {
             \Log::info($message);
         }
