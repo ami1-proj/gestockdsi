@@ -286,23 +286,25 @@ trait LdapImportTrait {
                 } else {
                     $usermail = $ldapaccount->userprincipalname;
                 }
-                //$role = RoleCustom::default()->first()->id;
+                $role = RoleCustom::default()->first()->id;
                 $user_values = [
                     'name' => $ldapaccount->name,
                     'email' => $usermail,
                     'is_ldap' => true,
                     'ldapaccount_id' => $ldapaccount->id,
                     'statut_id' => Statut::inactif()->first()->id,
-                    'password' => bcrypt('gestocksecret'),
-                    'confirm_password' => bcrypt('gestocksecret')
+                    'password' => 'gestocksecret',
+                    'confirm_password' => 'gestocksecret'
                 ];
 
                 $validator = Validator::make($user_values, User::createRules());
                 if (! $validator->fails()) {
                     \Log::info("user " . $ldapaccount->name . " created. validator->fails() : " . $validator->fails());
                     unset($user_values['roles']);
+                    unset($user_values['confirm_password']);
+                    $user_values['password'] = bcrypt($user_values['password']);
                     $user = User::create($user_values);
-                    //$user->assignRole([$role->id]);
+                    $user->assignRole([$role->id]);
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
                     $errors = $validator->errors();
@@ -313,12 +315,8 @@ trait LdapImportTrait {
     }
 
     private function logErrors($errors) {
-        foreach ($errors->all() as $key => $message_arr) {
-            \Log::info($key . " : ");
-            \Log::info($message_arr);
-            /*foreach ($message_arr as $message) {
-                \Log::info($message);
-            }*/
+        foreach ($errors->all() as $key => $message) {
+            \Log::info($message);
         }
     }
 }
