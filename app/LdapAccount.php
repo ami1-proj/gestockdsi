@@ -82,4 +82,9 @@
             }
             return $ldap_cols;
         }
+
+        public function getAuthIdentifier()
+        {
+            return $this->samaccountname;
+        }
     }

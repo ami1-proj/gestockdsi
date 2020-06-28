@@ -45,15 +45,13 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle an authentication attempt.
+     * The path to redirect authenticated users to.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return Response
+     * @return string
      */
-    public function authenticate(Request $request)
+    public function redirectTo()
     {
-
+        return url('/');
     }
 
     protected function attemptLogin(Request $request)
