@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'ldap' => [
+            'driver' => 'session',
+            'provider' => 'ldap',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
