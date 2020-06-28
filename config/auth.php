@@ -77,7 +77,7 @@ return [
         ],
         'ldap' => [
             'driver' => 'ldap', // Was 'eloquent'.
-            'model'  => App\User::class,
+            'model'  => App\LdapAccount::class,
         ],
 
         // 'users' => [
