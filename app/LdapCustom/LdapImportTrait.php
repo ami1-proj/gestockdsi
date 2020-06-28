@@ -117,10 +117,12 @@ trait LdapImportTrait {
                         $employe->prenom = ucwords($ldap_val);
                     } elseif ($column === "title") {
                         // fonction employe
-                        $fonctionemploye = FonctionEmploye::where('slug', Str::slug($ldap_val))->first();
+                        $intitule_fonctionemploye = strtolower($ldap_val);
+                        $intitule_fonctionemploye = ucwords($intitule_fonctionemploye);
+                        $fonctionemploye = FonctionEmploye::where('slug', Str::slug($intitule_fonctionemploye))->first();
                         if (! $fonctionemploye) {
                             $fonctionemploye_values = [
-                                'intitule' => $ldap_val,
+                                'intitule' => $intitule_fonctionemploye,
                                 'description' => $ldap_val,
                                 'statut_id' => Statut::actif()->first()->id,
                             ];
