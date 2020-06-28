@@ -80,11 +80,8 @@ trait LdapImportTrait {
                 }
                 $ldapaccount->{$column . "_result"} = $newvalues[$column . "_result"];
             }
-            //dump('user: ',$user);
-            //dump('userimported: ', $userimported);
-            //dump('newvalues: ', $newvalues);
+
             $ldapaccount->save();
-            //dump('3: $ldapaccount->save()', $ldapaccount);
             //$ldapaccount->update($newvalues);
             $this->setEmployeInfos($ldapaccount, $userldap);
             $this->createUser($ldapaccount);
@@ -133,8 +130,10 @@ trait LdapImportTrait {
                                 $employe->fonction_employe_id = $fonctionemploye->id;
                             } else {
                                 \Log::info("FonctionEmploye " . $intitule_fonctionemploye->name . " NOT created!!!. validator->fails() : " . $validator->fails());
-                                $this->logErrors($validator);
+                                $this->logValidatorErrors($validator);
                             }
+                        } else {
+                            $employe->fonction_employe_id = $fonctionemploye->id;
                         }
                     } elseif ($column === "distinguishedname") {
                         // infos complets de l employé
@@ -243,7 +242,7 @@ trait LdapImportTrait {
      * @return string
      */
     private function formatDepartementIntitule(string $intitule) {
-        $sigles = ['gt','rh','si','it'];
+        $sigles = ['gt','rh','si','it','sav','in','bss','msan','rva','erp','dr'];
         $intitule_tab = explode(' ', $intitule);
 
         for ($i = 0; $i < count($intitule_tab); $i++) {
@@ -311,13 +310,17 @@ trait LdapImportTrait {
                     $user->assignRole([$role->id]);
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
-                    $this->logErrors($validator);
+                    $this->logValidatorErrors($validator);
                 }
             }
         }
     }
 
-    private function logErrors($validator) {
+    /**
+     * Enregistre le message d'erreur de validation dans les logs
+     * @param $validator
+     */
+    private function logValidatorErrors($validator) {
         $errors = $validator->errors();
         foreach ($errors->all() as $key => $message) {
             \Log::info($message);
