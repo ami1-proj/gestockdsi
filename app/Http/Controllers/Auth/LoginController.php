@@ -64,8 +64,13 @@ class LoginController extends Controller
 
         // Get the user details from database and check if user is exist and active.
         $user = User::where('username',$username)->first();
-        if( $user && !$user->is_actif){
-            throw ValidationException::withMessages([$this->username() => __('User has been desactivated.')]);
+
+        if($user){
+            if (!$user->is_actif) {
+                throw ValidationException::withMessages([$this->username() => __('User has been desactivated.')]);
+            }
+        } else {
+            throw ValidationException::withMessages([$this->username() => __('Infos de connexion non valides !')]);
         }
 
         $credentials = ['username' => $username, 'password' => $input['password']];
