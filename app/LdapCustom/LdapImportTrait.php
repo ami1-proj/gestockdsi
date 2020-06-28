@@ -286,7 +286,7 @@ trait LdapImportTrait {
                 } else {
                     $usermail = $ldapaccount->userprincipalname;
                 }
-                $role = RoleCustom::default()->first()->id;
+                //$role = RoleCustom::default()->first()->id;
                 $user_values = [
                     'name' => $ldapaccount->name,
                     'email' => $usermail,
@@ -302,7 +302,7 @@ trait LdapImportTrait {
                     \Log::info("user " . $ldapaccount->name . " created. validator->fails() : " . $validator->fails());
                     unset($user_values['roles']);
                     $user = User::create($user_values);
-                    $user->assignRole([$role->id]);
+                    //$user->assignRole([$role->id]);
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
                     $errors = $validator->errors();
