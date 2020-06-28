@@ -20,6 +20,7 @@ use App\Traits\RelationshipsTrait;
  *
  * @property integer $id
  * @property string $name
+ * @property string $username
  * @property string $email
  * @property \Illuminate\Support\Carbon $email_verified_at
  * @property string $password
@@ -150,5 +151,40 @@ class User extends Authenticatable
         ->where('name', 'LIKE', "%{$q}%")
         ->orWhere('email', 'LIKE', "%{$q}%")
         ;
+    }
+
+    private function setUsername() {
+        if (empty($this->username)) {
+            $this->username = explode('@', $this->email)[0];
+        }
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->setUsername();
+        });
+
+        self::created(function($model){
+            // ... code here
+        });
+
+        self::updating(function($model){
+            $model->setUsername();
+        });
+
+        self::updated(function($model){
+            // ... code here
+        });
+
+        self::deleting(function($model){
+            // ... code here
+        });
+
+        self::deleted(function($model){
+            // ... code here
+        });
     }
 }

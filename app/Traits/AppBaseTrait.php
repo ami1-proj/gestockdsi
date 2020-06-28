@@ -2,12 +2,17 @@
 
 namespace App\Traits;
 
+use App\Statut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use App\RecycleBin;
 use App\TypeAffectation;
 
 trait AppBaseTrait {
+
+    public function getIsActifAttribute() {
+        return ($this->statut_id == Statut::actif()->first()->id);
+    }
 
   /**
    * Renvoie un tableau contenant le chemin complet[0] et le nom[1] de la classe qui implémente ce Trait

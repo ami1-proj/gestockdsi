@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Statut;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Validation\ValidationException;
+use App\LdapCustom\LdapConnectTrait;
 
 class LoginController extends Controller
 {
@@ -55,13 +58,34 @@ class LoginController extends Controller
 
     protected function attemptLogin(Request $request)
     {
-        $credentials = $request->only('email', 'password');
         //if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {
         $input = $request->input();
-        //dd($input);
-        if (Auth::attempt(['email' => $input['email'], 'password' => $input['password'], 'statut_id' => Statut::actif()->first()->id])) {
+        $username = explode('@', $input['email'])[0];
+
+        // Get the user details from database and check if user is exist and active.
+        $user = User::where('username',$username)->first();
+        if( $user && !$user->is_actif){
+            throw ValidationException::withMessages([$this->username() => __('User has been desactivated.')]);
+        }
+
+        $credentials = ['username' => $username, 'password' => $input['password']];
+        if ($user->is_ldap) {
+            if (Auth::guard('ldap')->attempt($credentials)) {
+                return redirect('/');
+            }
+        }
+
+        // Or using the default guard you've configured, likely "users"
+        if ($user->is_local) {
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                return redirect('/');
+            }
+        }
+
+        /*if (Auth::attempt(['email' => $input['email'], 'password' => $input['password'] ])) {
             // Authentication passed...
             return redirect()->intended('/');
-        }
+        }*/
     }
 }
