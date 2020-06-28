@@ -11,6 +11,7 @@ use App\FonctionEmploye;
 use App\LdapAccount;
 use App\LdapAccountImport;
 use App\Phonenum;
+use App\RoleCustom;
 use App\Statut;
 use App\TypeDepartement;
 use App\User;
@@ -285,6 +286,7 @@ trait LdapImportTrait {
                 } else {
                     $usermail = $ldapaccount->userprincipalname;
                 }
+                $role = RoleCustom::default()->first()->id;
                 $user_values = [
                     'name' => $ldapaccount->name,
                     'email' => $usermail,
@@ -298,9 +300,18 @@ trait LdapImportTrait {
                 $validator = Validator::make($user_values, User::createRules());
                 if (! $validator->fails()) {
                     \Log::info("user " . $ldapaccount->name . " created. validator->fails() : " . $validator->fails());
-                    User::create($user_values);
+                    unset($user_values['roles']);
+                    $user = User::create($user_values);
+                    $user->assignRole([$role->id]);
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
+                    $errors = $validator->errors();
+                    foreach ($errors->all() as $key => $message_arr) {
+                        \Log::info($key . " : ");
+                        foreach ($message_arr as $message) {
+                            \Log::info($message);
+                        }
+                    }
                 }
             }
         }

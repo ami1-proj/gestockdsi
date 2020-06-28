@@ -9,7 +9,7 @@ class Affectation extends AppBaseModel
 {
     use SoftDeletes;
 
-		protected $guarded = [];
+    protected $guarded = [];
 
     public static $model_name = 'Affectation';
 

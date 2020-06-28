@@ -85,4 +85,9 @@ class RoleCustom extends Role
     public function statut() {
         return $this->belongsTo('App\Statut');
     }
+
+    public function scopeDefault($query) {
+        return $query
+            ->where('name', 'Default User');
+    }
 }
