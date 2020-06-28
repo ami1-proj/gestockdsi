@@ -3,6 +3,7 @@
     namespace App;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Foundation\Auth\User as Authenticatable;
 
     /**
      * Class LdapAccount
@@ -10,6 +11,7 @@
      *
      * @property integer $id
      * @property string $objectguid
+     * @property string|null $email
      * @property string|null $cn
      * @property string|null $cn_result
      * @property string|null $sn
@@ -56,7 +58,7 @@
      * @property \Illuminate\Support\Carbon $created_at
      * @property \Illuminate\Support\Carbon $updated_at
      */
-    class LdapAccount extends Model
+    class LdapAccount extends Authenticatable
     {
         protected $guarded = [];
         protected $table = 'ldapaccounts';

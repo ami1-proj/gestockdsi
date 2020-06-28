@@ -44,7 +44,7 @@ trait LdapImportTrait {
         // Traitement des lignes importées
         $accountsimported = LdapAccountImport::get();
         foreach ($accountsimported as $accountimported) {
-            $this->adldapSyncUser($accountimported->name, $accountimported->objectguid);
+            $this->adldapSyncUser($accountimported->name, $accountimported->objectguid, $accountimported->email);
         }
     }
 
@@ -53,7 +53,7 @@ trait LdapImportTrait {
      * @param String $username
      * @param string $objectguid
      */
-    public function adldapSyncUser(String $username, $objectguid = "") {
+    public function adldapSyncUser(String $username, $objectguid = "", $email = "") {
         $userldap = Adldap::search()->users()->find($username);
         if ($userldap) {
             //dump('1: $userldap', $userldap);
@@ -62,6 +62,9 @@ trait LdapImportTrait {
                 $ldapaccount = new LdapAccount();
                 if ($objectguid !== "") {
                     $ldapaccount->objectguid = $objectguid;
+                }
+                if ($email !== "") {
+                    $ldapaccount->email = $email;
                 }
             }
             //dump('2: $ldapaccount', $ldapaccount);
