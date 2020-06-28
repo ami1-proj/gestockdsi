@@ -134,7 +134,7 @@ class User extends Authenticatable
      * Renvoie le Compte LDAP du User.
      */
     public function ldapaccount() {
-        return $this->belongsTo('App\LdapAccount', 'ldapaccount_id');
+        return $this->belongsTo('App\LdapAccount', 'objectguid');
     }
 
     /**

@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_ldap')->is_default(false)->comment('indique si le compte est LDAP');
 
             $table->unsignedBigInteger('statut_id')->nullable()->comment('reference du statut');
-            $table->unsignedBigInteger('ldapaccount_id')->nullable()->comment('reference du compte LDAP');
+            $table->string('objectguid')->nullable()->comment('reference du compte LDAP');
 
             $table->timestamps();
         });
