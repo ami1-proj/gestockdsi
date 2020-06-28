@@ -50,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'statut_id', 'image', 'is_local', 'is_ldap', 'ldapaccount_id',
+        'name', 'email', 'password', 'statut_id', 'image', 'is_local', 'is_ldap', 'ldapaccount_id', 'username', 'objectguid',
     ];
 
     /**
