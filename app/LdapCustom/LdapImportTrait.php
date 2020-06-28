@@ -306,13 +306,17 @@ trait LdapImportTrait {
                 } else {
                     \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
                     $errors = $validator->errors();
-                    foreach ($errors->all() as $key => $message_arr) {
-                        \Log::info($key . " : ");
-                        foreach ($message_arr as $message) {
-                            \Log::info($message);
-                        }
-                    }
+                    $this->logErrors($errors);
                 }
+            }
+        }
+    }
+
+    private function logErrors($errors) {
+        foreach ($errors->all() as $key => $message_arr) {
+            \Log::info($key . " : ");
+            foreach ($message_arr as $message) {
+                \Log::info($message);
             }
         }
     }
