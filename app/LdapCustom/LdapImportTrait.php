@@ -285,7 +285,7 @@ trait LdapImportTrait {
                 } else {
                     $usermail = $ldapaccount->userprincipalname;
                 }
-                $uservalues = [
+                $user_values = [
                     'name' => $ldapaccount->name,
                     'email' => $usermail,
                     'is_ldap' => true,
@@ -294,9 +294,13 @@ trait LdapImportTrait {
                     'password' => bcrypt('gestocksecret'),
                     'confirm_password' => bcrypt('gestocksecret')
                 ];
-                $validator = Validator::make($uservalues, User::createRules());
+
+                $validator = Validator::make($user_values, User::createRules());
                 if (! $validator->fails()) {
-                    User::create($uservalues);
+                    \Log::info("user " . $ldapaccount->name . " created. validator->fails() : " . $validator->fails());
+                    User::create($user_values);
+                } else {
+                    \Log::info("user " . $ldapaccount->name . " NOT created!!!. validator->fails() : " . $validator->fails());
                 }
             }
         }
