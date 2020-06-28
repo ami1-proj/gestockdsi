@@ -14,7 +14,7 @@ class AddUserLdapaccountForeignKey extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('objectguid')->references('objectguid')->on('ldapaccounts')->onDelete('set null');
+            $table->foreign('ldapaccount_id')->references('id')->on('ldapaccounts')->onDelete('set null');
         });
     }
 

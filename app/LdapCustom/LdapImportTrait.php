@@ -292,6 +292,7 @@ trait LdapImportTrait {
                 $user_values = [
                     'name' => $ldapaccount->name,
                     'username' => $ldapaccount->samaccountname,
+                    'objectguid' => $ldapaccount->objectguid,
                     'email' => $usermail,
                     'is_ldap' => true,
                     'ldapaccount_id' => $ldapaccount->id,

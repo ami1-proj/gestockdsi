@@ -19,6 +19,7 @@ use App\Traits\RelationshipsTrait;
  * @package App
  *
  * @property integer $id
+ * @property string $objectguid
  * @property string $name
  * @property string $username
  * @property string $email
@@ -134,7 +135,7 @@ class User extends Authenticatable
      * Renvoie le Compte LDAP du User.
      */
     public function ldapaccount() {
-        return $this->belongsTo('App\LdapAccount', 'objectguid');
+        return $this->belongsTo('App\LdapAccount', 'ldapaccount_id');
     }
 
     /**

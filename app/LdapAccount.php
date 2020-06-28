@@ -9,7 +9,7 @@
      * @package App
      *
      * @property integer $id
-     * @property integer $objectguid
+     * @property string $objectguid
      * @property string|null $cn
      * @property string|null $cn_result
      * @property string|null $sn

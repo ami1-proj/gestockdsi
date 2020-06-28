@@ -14,7 +14,7 @@ class CreateLdapaccountsTable extends Migration
     public function up()
     {
         $tableName = 'ldapaccounts';
-        Schema::create('ldapaccounts', function (Blueprint $table) {
+        Schema::create($tableName, function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('objectguid')->nullable()->comment('GUID du compte');
