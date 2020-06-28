@@ -39,6 +39,8 @@ class LdapAccountSync extends Command
      */
     public function handle()
     {
+        \Log::info("Cron en cours de traitement...");
         $this->importLdapAccounts();
+        \Log::info("Traitement termine.");
     }
 }
