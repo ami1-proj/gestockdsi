@@ -19,6 +19,7 @@ class CreateLdapaccountsTable extends Migration
 
             $table->string('objectguid')->nullable()->comment('GUID du compte');
             $table->string('email')->nullable()->comment('e-mail du compte');
+            $table->string('password')->nullable()->comment('mot de passe du compte');
 
             $table->string('cn')->nullable()->comment('nom complet');
             $table->string('cn_result')->nullable()->comment('résultat cn de la derniere importation');

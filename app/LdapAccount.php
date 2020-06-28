@@ -12,6 +12,7 @@
      * @property integer $id
      * @property string $objectguid
      * @property string|null $email
+     * @property string|null $password
      * @property string|null $cn
      * @property string|null $cn_result
      * @property string|null $sn
