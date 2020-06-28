@@ -73,7 +73,11 @@ class LoginController extends Controller
             throw ValidationException::withMessages([$this->username() => __('Infos de connexion non valides !')]);
         }
 
-        $credentials = ['username' => $username, 'password' => $input['password']];
+        $credentials = [
+            'username' => $username,
+            'email' => $username . '' . config('app.ldap_domain'),
+            'password' => $input['password']
+        ];
         if ($user->is_ldap) {
             if (Auth::guard('ldap')->attempt($credentials)) {
                 return redirect('/');
