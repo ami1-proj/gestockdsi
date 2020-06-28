@@ -291,6 +291,7 @@ trait LdapImportTrait {
                 $role = RoleCustom::default()->first();
                 $user_values = [
                     'name' => $ldapaccount->name,
+                    'username' => $ldapaccount->samaccountname,
                     'email' => $usermail,
                     'is_ldap' => true,
                     'ldapaccount_id' => $ldapaccount->id,
