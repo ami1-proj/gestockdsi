@@ -35,6 +35,19 @@ class LoginController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        //
+        return redirect()->route('home') ;
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -78,7 +91,9 @@ class LoginController extends Controller
         ];
         if ($user->is_ldap) {
             if (Auth::guard('ldap')->attempt($credentials)) {
-                return redirect('/');
+                Auth::login($user);
+                //return redirect('/');
+                return redirect()->intended('/');
             }
         }
 
