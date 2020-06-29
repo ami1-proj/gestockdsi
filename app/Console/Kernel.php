@@ -24,14 +24,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        /**
+         * Modifier les états des articles
+         */
+        $schedule->command('article:setetat')
+            ->hourly();
 
-        // Import LDAP users hourly.
+        /**
+         * Importation des comptes LDAP
+         */
         $schedule->command('adldap:import', [
             '--model' => "\App\LdapAccountImport",
             '--no-interaction',
-        ])->daily();
+        ])->dailyAt('01:00');
+
+        /**
+         * Synchronisation des comptes LDAP importés
+         */
+        $schedule->command('ldapaccount:sync')
+            ->dailyAt('02:00');
     }
 
     /**
