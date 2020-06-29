@@ -14,6 +14,30 @@
     </div>
 </div>
 
+<div class="form-group row {{ $errors->has('username') ? 'has-error' : '' }}">
+    <label class="col-sm-2 col-form-label" for="name">Login</label>
+    <div class="col-sm-10">
+        <input name="username" type="text" class="form-control" placeholder="Login" value="{{ old('username', $user->username ?? '') }}"/>
+        <small class="text-danger">{{ $errors->has('username') ? $errors->first('username') : '' }}</small>
+    </div>
+</div>
+
+<div class="form-group row {{ $errors->has('is_local') ? 'has-error' : '' }}">
+    <label class="col-sm-2 col-form-label"for="is_local">Accès Locale</label>
+    <div class="col-sm-10">
+        <input name="is_local" {{ Auth::user()->can(\App\User::canchange_acceslocal()) ? '' : 'disabled' }} class="toggle-class" type="checkbox" data-onstyle="outline-info" data-offstyle="outline-warning" data-toggle="toggle" data-on="Oui" data-off="Non" data-size="xs" {{ $user->is_local == '1' ? 'checked' : '' }}>
+        <small class="text-danger">{{ $errors->has('is_local') ? $errors->first('is_local') : '' }}</small>
+    </div>
+</div>
+
+<div class="form-group row {{ $errors->has('is_ldap') ? 'has-error' : '' }}">
+    <label class="col-sm-2 col-form-label"for="is_ldap">Accès LDAP</label>
+    <div class="col-sm-10">
+        <input name="is_ldap" {{ Auth::user()->can(\App\User::canchange_accesldap()) ? '' : 'disabled' }} class="toggle-class" type="checkbox" data-onstyle="outline-info" data-offstyle="outline-warning" data-toggle="toggle" data-on="Oui" data-off="Non" data-size="xs" {{ $user->is_ldap == '1' ? 'checked' : '' }}>
+        <small class="text-danger">{{ $errors->has('is_ldap') ? $errors->first('is_ldap') : '' }}</small>
+    </div>
+</div>
+
 @if(isset($user->id))
 
 @else

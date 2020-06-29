@@ -99,6 +99,12 @@ trait PermissionTrait {
   public static function canchange_statut() {
     return self::getModelPermission('change_statut');
   }
+  public static function canchange_acceslocal() {
+      return self::getModelPermission('change_acceslocal');
+  }
+  public static function canchange_accesldap() {
+      return self::getModelPermission('change_accesldap');
+  }
   public static function canrestore_trash() {
     return self::getModelPermission('restore_trash');
   }

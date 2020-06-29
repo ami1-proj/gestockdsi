@@ -115,7 +115,9 @@ class UserController extends Controller
     public function update(UserEditRequest $request, User $user)
     {
         $input = $this->formatRequestInput($request);
+
         $user->update($input);
+
         DB::table('model_has_roles')->where('model_id',$user->id)->delete();
 
         $user->assignRole($request->input('roles'));

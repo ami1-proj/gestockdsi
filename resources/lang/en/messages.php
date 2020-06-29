@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'modelSaved' => ':lelement à été enregister avec succès!',
+    'modelSaved' => ':modelname à été enregister avec succès!',
     'modelUpdated' => ':modelname à été mise a jour avec succès!!',
     'modelDeleted' => ':modelname has been deleted successfully!',
     'modelCannotDelTheLast' => 'the last :modelname cannot be deleted!',

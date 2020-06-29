@@ -32,6 +32,8 @@ class AppPermission extends Model
         'edit' => ['user-edit', 2],
         'delete' => ['user-delete', 1],
         'change_statut' => ['user-change_statut', 2],
+        'change_acceslocal' => ['user-change_acceslocal', 2],
+        'change_accesldap' => ['user-change_accesldap', 2],
         'restore_trash' => ['user-restore_trash', 2],
         'delete_trash' => ['user-delete_trash', 2],
       ],

@@ -7,10 +7,23 @@
       <dd class="col-sm-9">{{ $user->id }}</dd>
 
       <dt class="col-sm-3">Nom</dt>
-      <dd class="col-sm-9">{{ $user->name }}</dd>
+      <dd class="col-sm-9">{{ $user->name ?? '' }}</dd>
 
       <dt class="col-sm-3">Email</dt>
-      <dd class="col-sm-9">{{ $user->email }}</dd>
+      <dd class="col-sm-9">{{ $user->email ?? '' }}</dd>
+
+      <dt class="col-sm-3">Login</dt>
+      <dd class="col-sm-9">{{ $user->username ?? '' }}</dd>
+
+      <dt class="col-sm-3">Accès Local</dt>
+      <dd class="col-sm-9">
+          <input disabled readonly type="checkbox" name="is_default" class="switch-input" value="1" {{ $user->is_local ? 'checked="checked"' : '' }}/>
+      </dd>
+
+      <dt class="col-sm-3">Accès LDAP</dt>
+      <dd class="col-sm-9">
+          <input disabled readonly type="checkbox" name="is_default" class="switch-input" value="1" {{ $user->is_ldap ? 'checked="checked"' : '' }}/>
+      </dd>
 
       <dt class="col-sm-3">Statut</dt>
       <dd class="col-sm-9">

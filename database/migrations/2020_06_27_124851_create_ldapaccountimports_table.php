@@ -19,7 +19,6 @@ class CreateLdapaccountimportsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('objectguid')->nullable()->comment('GUID du compte');
-
             $table->string('username')->nullable()->comment('Account Name');
             $table->string('name')->nullable()->comment('nom complet du compte');
 
