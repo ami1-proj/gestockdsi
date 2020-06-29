@@ -11,10 +11,23 @@
 |
 */
 
+
     Auth::routes();
 
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/', 'HomeController@index')->name('home');
+    });
+
+    Route::get('send-mail', function () {
+
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp'
+        ];
+
+        \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationMail($details));
+
+        dd("Email is Sent.");
     });
 
     Route::get('/tests', function () {
