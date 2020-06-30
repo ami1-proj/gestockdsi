@@ -32,7 +32,8 @@ class AffectationMail extends Mailable
     {
         //return $this->view('view.name');
         return $this->subject('Affection Articles')
+            ->markdown('vendor.mail.html.themes.mailstyle01')
             ->view('emails.affectations.new')
-            ->markdown('vendor.mail.html.themes.mailstyle01');
+            ;
     }
 }
