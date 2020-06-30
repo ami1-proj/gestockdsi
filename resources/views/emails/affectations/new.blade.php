@@ -1,8 +1,15 @@
 @component('mail::message')
-# Nouvelle Affection
+# Nouvelle Affection de Matérièles informatique
 
-Bonjour.
-Une nouvelle affectation de Matériels informatique a été programmé pour vous
+<p>
+    Bonjour.
+</p>
+<p>
+    Une nouvelle affectation de Matériels informatique a été programmé pour vous
+</p>
+<p>
+    Objet: <strong>{{ $affectation->objet  }}</strong>
+</p>
 
 ## Liste du Matériels
 

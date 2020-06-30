@@ -4,7 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
+/**
+ * Class Affectation
+ * @package App
+ *
+ * @property integer $id
+ * @property string $objet
+ * @property \Illuminate\Support\Carbon $date_debut
+ * @property \Illuminate\Support\Carbon|null $date_fin
+ * @property integer|null $type_affectation_id
+ * @property integer|null $beneficiaire_id
+ * @property integer|null $statut_id
+ * @property string|null $tags
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class Affectation extends AppBaseModel
 {
     use SoftDeletes;
