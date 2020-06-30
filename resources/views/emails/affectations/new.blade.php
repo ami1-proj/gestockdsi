@@ -52,7 +52,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                 <tr>
                     <td style="{{ $style['email-masthead'] }}"><a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank"> <img src="{{asset("assets/images/logo-sm.png")}}" height="150px"/>
                         <!--{{ config('app.name') }}-->
-                        </a><br/><br/><div align="center">Branch Name: {{ $branch_name }}</div></td>
+                        </a><br/><br/><div align="center">Branch Name: The_Branch_Name</div></td>
                 </tr>
                 <!-- Email Body -->
                 <tr>
