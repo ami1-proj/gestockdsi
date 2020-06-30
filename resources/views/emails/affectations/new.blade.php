@@ -50,7 +50,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
         <td style="{{ $style['email-wrapper'] }}" align="center"><table width="100%" cellpadding="0" cellspacing="0">
                 <!-- Logo -->
                 <tr>
-                    <td style="{{ $style['email-masthead'] }}"><a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank"> <img src="{{asset("storage/app/public/uploads/$logo")}}" height="150px"/>
+                    <td style="{{ $style['email-masthead'] }}"><a style="{{ $fontFamily }} {{ $style['email-masthead_name'] }}" href="{{ url('/') }}" target="_blank"> <img src="{{asset("assets/images/logo-sm.png")}}" height="150px"/>
                         <!--{{ config('app.name') }}-->
                         </a><br/><br/><div align="center">Branch Name: {{ $branch_name }}</div></td>
                 </tr>
