@@ -58,7 +58,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                 <tr>
                     <td style="{{ $style['email-body'] }}" width="100%"><table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td align="center"> {{$content}} </td>
+                                <td align="center"> {{$details['body']}} </td>
                             </tr>
                         </table></td>
                 </tr>
@@ -66,7 +66,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                 <tr>
                     <td><table style="{{ $style['email-footer'] }}" align="center" width="570" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}"><p style="{{ $style['paragraph-sub'] }}"> &copy; {{ date('Y') }} <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ $title }}</a>.
+                                <td style="{{ $fontFamily }} {{ $style['email-footer_cell'] }}"><p style="{{ $style['paragraph-sub'] }}"> &copy; {{ date('Y') }} <a style="{{ $style['anchor'] }}" href="{{ url('/') }}" target="_blank">{{ $details['title'] }}</a>.
                                         All rights reserved. </p></td>
                             </tr>
                         </table></td>
