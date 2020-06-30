@@ -11,7 +11,14 @@
     Objet: <strong>{{ $affectation->objet  }}</strong>
 </p>
 
-## Liste du Matériels
+## Liste de Matériels
+@component('mail::table')
+    | Type    | Référence   | Marque  |
+    |:------:   |:-----------   |:--------: |
+    @foreach($articles as $atc)
+        | {{$atc->typeArticle->libelle}}     | {{$atc->reference}} |        {{$atc->marqueArticle->nom}} |
+    @endforeach
+@endcomponent
 
 @component('mail::panel')
     The information contained in this website is for general information purposes only. The information is provided by Gamesstation, while we endeavour to keep the information up to date and correct, we make no representations or warranties of any kind. Any reliance you place on such information is strictly at your own risk.
