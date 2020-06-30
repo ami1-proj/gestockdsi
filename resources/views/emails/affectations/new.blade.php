@@ -3,11 +3,11 @@
 
     Your order has been shipped!
 
-    @component('mail::button')
+    @component('mail::button', ['url' => $url, 'color' => 'primary'])
         View Order
     @endcomponent
 
-    @component('mail::button', ['color' => 'success'])
+    @component('mail::button', ['url' => $url, 'color' => 'success'])
         View Order
     @endcomponent
 

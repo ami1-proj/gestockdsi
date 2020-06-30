@@ -12,6 +12,7 @@ class AffectationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $details;
+    public $url;
 
     /**
      * Create a new message instance.
@@ -21,6 +22,7 @@ class AffectationMail extends Mailable
     public function __construct($details)
     {
         $this->details = $details;
+        $this->url = route('articles.show', 1);
     }
 
     /**
