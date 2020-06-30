@@ -30,7 +30,7 @@
                 <!-- /Email Header -->
 
                 <!-- Email Containt -->
-                @yield('containt')
+                @yield('content')
                 <!-- /Email Containt -->
 
                 <!-- Email Footer -->
