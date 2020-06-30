@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Validation\ValidationException;
 use App\LdapCustom\LdapConnectTrait;
+use Hash;
 
 class LoginController extends Controller
 {
@@ -92,7 +93,9 @@ class LoginController extends Controller
         if ($user->is_ldap) {
             if (Auth::guard('ldap')->attempt($credentials)) {
                 Auth::login($user);
-                //return redirect('/');
+                // Update du PWD LDAP local
+                $ldapaccount = $user->ldapaccount;
+                $ldapaccount->upadte( ['password' => Hash::make($credentials['password'])] );
                 return redirect()->intended('/');
             }
         }
