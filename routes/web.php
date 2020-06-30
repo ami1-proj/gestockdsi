@@ -31,7 +31,7 @@
 
 
         $beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);
-        $beautymail->send('emails.affections.new', [], function($message)
+        $beautymail->send('emails.affectations.new', [], function($message)
         {
             $message
                 ->from('j.ngomnze@gabontelecom.ga')
