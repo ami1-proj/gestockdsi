@@ -20,14 +20,25 @@
 
     Route::get('send-mail', function () {
 
-        $details = [
+        /*$details = [
             'title' => 'Mail from ItSolutionStuff.com',
             'body' => 'This is for testing email using smtp'
         ];
 
         \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationMail($details));
 
-        dd("Email is Sent.");
+        dd("Email is Sent.");*/
+
+
+        $beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);
+        $beautymail->send('emails.affections.new', [], function($message)
+        {
+            $message
+                ->from('bar@example.com')
+                ->to('foo@example.com', 'John Smith')
+                ->subject('Welcome!');
+        });
+
     });
 
     Route::get('/tests', function () {
