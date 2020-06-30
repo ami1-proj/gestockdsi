@@ -25,8 +25,7 @@
             'body' => 'This is for testing email using smtp'
         ];
 
-        \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationMail($details))
-            ->markdown('vendor.mail.html.themes.mailstyle01');
+        \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationMail($details));
 
         dd("Email is Sent.");
 
