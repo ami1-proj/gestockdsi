@@ -13,8 +13,8 @@
 
 ## Liste de Matériels
 @component('mail::table')
-    | Type    | Référence   | Marque  |
-    |:------:   |:-----------   |:--------: |
+    | Type      | Référence     | Marque    |
+    |:--------- |:------------- |:--------- |
     @foreach($articles as $atc)
         | {{$atc->typeArticle->libelle}}     | {{$atc->reference}} |        {{$atc->marqueArticle->nom}} |
     @endforeach
