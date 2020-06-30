@@ -25,7 +25,7 @@
             'body' => 'This is for testing email using smtp'
         ];
 
-        \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationMail($details));
+        \Mail::to('j.ngomnze@gabontelecom.ga')->send(new \App\Mail\AffectationNew());
 
         dd("Email is Sent.");
 
