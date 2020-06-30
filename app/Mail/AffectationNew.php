@@ -33,6 +33,7 @@ class AffectationNew extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.affectations.new');
+        return $this->subject('Affectation Matériels Informatique')
+            ->markdown('emails.affectations.new');
     }
 }

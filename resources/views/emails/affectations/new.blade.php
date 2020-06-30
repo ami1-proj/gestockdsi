@@ -1,5 +1,5 @@
 @component('mail::message')
-# Nouvelle Affection de Matérièles informatique
+# Nouvelle Affection de Matériels informatique
 
 <p>
     Bonjour.
