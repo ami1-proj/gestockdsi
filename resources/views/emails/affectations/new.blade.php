@@ -3,95 +3,95 @@
 @section('content')
 
     <tr>
-        <td class="body" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #ffffff; border-bottom: 1px solid #edeff2; border-top: 1px solid #edeff2; margin: 0; padding: 0; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
-            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #ffffff; margin: 0 auto; padding: 0; width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 570px;">
+        <td class="body" width="100%" cellpadding="0" cellspacing="0">
+            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0">
                 <!-- Body content --><tr>
-                    <td class="content-cell" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
-                        <h1 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 19px; font-weight: bold; margin-top: 0; text-align: left;">Heading 1</h1>
-                        <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a href="" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869d4;">doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.</p>
-                        <h2 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 16px; font-weight: bold; margin-top: 0; text-align: left;">Heading 2</h2>
-                        <div class="table" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                            <table style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;">
-                                <thead style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                    <th style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; border-bottom: 1px solid #edeff2; padding-bottom: 8px;">Product</th>
-                                    <th style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; border-bottom: 1px solid #edeff2; padding-bottom: 8px;">Description</th>
-                                    <th style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; border-bottom: 1px solid #edeff2; padding-bottom: 8px; text-align: right;">Price</th>
+                    <td class="content-cell">
+                        <h1>Heading 1</h1>
+                        <p>This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a href="">doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.</p>
+                        <h2>Heading 2</h2>
+                        <div class="table">
+                            <table>
+                                <thead><tr>
+                                    <th>Product</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
                                 </tr></thead>
-                                <tbody style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
+                                <tbody>
                                 <tr>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">Product 1</td>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">Lorem Ipsum</td>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0; text-align: right;">$10</td>
+                                    <td>Product 1</td>
+                                    <td>Lorem Ipsum</td>
+                                    <td>$10</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">Product 2</td>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0;">Lorem ipsum dolor sit amet.</td>
-                                    <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 15px; line-height: 18px; padding: 10px 0; text-align: right;">$20</td>
+                                    <td>Product 2</td>
+                                    <td>Lorem ipsum dolor sit amet.</td>
+                                    <td>$20</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <h3 style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #2F3133; font-size: 14px; font-weight: bold; margin-top: 0; text-align: left;">Heading 3</h3>
-                        <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a href="" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869d4;">doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.</p>
-                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;"><tr>
-                                <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                            <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                <table border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                                        <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                            <a href="#" class="button button-blue" target="_blank" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #ffffff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3097d1; border-top: 10px solid #3097d1; border-right: 18px solid #3097d1; border-bottom: 10px solid #3097d1; border-left: 18px solid #3097d1;">Blue button</a>
+                        <h3>Heading 3</h3>
+                        <p >This is a paragraph filled with Lorem Ipsum and a link. Cumque dicta <a href="">doloremque eaque</a>, enim error laboriosam pariatur possimus tenetur veritatis voluptas.</p>
+                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="center">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+                                            <td align="center">
+                                                <table border="0" cellpadding="0" cellspacing="0"><tr>
+                                                        <td>
+                                                            <a href="#" class="button button-blue" target="_blank">Blue button</a>
                                                         </td>
                                                     </tr></table>
                                             </td>
                                         </tr></table>
                                 </td>
                             </tr></table>
-                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;"><tr>
-                                <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                            <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                <table border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                                        <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                            <a href="#" class="button button-green" target="_blank" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #ffffff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #2ab27b; border-top: 10px solid #2ab27b; border-right: 18px solid #2ab27b; border-bottom: 10px solid #2ab27b; border-left: 18px solid #2ab27b;">Green button</a>
+                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="center">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+                                            <td align="center">
+                                                <table border="0" cellpadding="0" cellspacing="0"><tr>
+                                                        <td>
+                                                            <a href="#" class="button button-green" target="_blank">Green button</a>
                                                         </td>
                                                     </tr></table>
                                             </td>
                                         </tr></table>
                                 </td>
                             </tr></table>
-                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 30px auto; padding: 0; text-align: center; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;"><tr>
-                                <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                            <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                <table border="0" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                                        <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                                            <a href="#" class="button button-red" target="_blank" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #ffffff; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #bf5329; border-top: 10px solid #bf5329; border-right: 18px solid #bf5329; border-bottom: 10px solid #bf5329; border-left: 18px solid #bf5329;">Red button</a>
+                        <table class="action" align="center" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="center">
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0"><tr>
+                                            <td align="center">
+                                                <table border="0" cellpadding="0" cellspacing="0"><tr>
+                                                        <td>
+                                                            <a href="#" class="button button-red" target="_blank">Red button</a>
                                                         </td>
                                                     </tr></table>
                                             </td>
                                         </tr></table>
                                 </td>
                             </tr></table>
-                        <table class="panel" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; margin: 0 0 21px;"><tr>
-                                <td class="panel-content" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #edeff2; padding: 16px;">
-                                    <table width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;"><tr>
-                                            <td class="panel-item" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 0;">
-                                                <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left; margin-bottom: 0; padding-bottom: 0;">How awesome is this panel?</p>
+                        <table class="panel" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td class="panel-content">
+                                    <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                                            <td class="panel-item">
+                                                <p>How awesome is this panel?</p>
                                             </td>
                                         </tr></table>
                                 </td>
                             </tr></table>
-                        <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Heading 3</p>
-                        <table class="promotion" align="center" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; background-color: #FFFFFF; border: 2px dashed #9BA2AB; margin: 0; margin-bottom: 25px; margin-top: 25px; padding: 24px; width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; -premailer-width: 100%;"><tr>
-                                <td align="center" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; line-height: 1.5em; margin-top: 0; font-size: 15px; text-align: center;">Coupon code: MarkdownMail</p>
+                        <p >Heading 3</p>
+                        <table class="promotion" align="center" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="center">
+                                    <p>Coupon code: MarkdownMail</p>
                                 </td>
                             </tr></table>
-                        <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; font-size: 16px; line-height: 1.5em; margin-top: 0; text-align: left;">Thanks,<br>
+                        <p >Thanks,<br>
                             MarkdownMail</p>
-                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; border-top: 1px solid #edeff2; margin-top: 25px; padding-top: 25px;"><tr>
-                                <td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box;">
-                                    <p style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787e; line-height: 1.5em; margin-top: 0; text-align: left; font-size: 12px;">This is the subcopy of the email</p>
+                        <table class="subcopy" width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td>
+                                    <p>This is the subcopy of the email</p>
                                 </td>
                             </tr></table>
                     </td>
