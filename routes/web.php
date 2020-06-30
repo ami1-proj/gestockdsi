@@ -34,8 +34,8 @@
         $beautymail->send('emails.affections.new', [], function($message)
         {
             $message
-                ->from('bar@example.com')
-                ->to('foo@example.com', 'John Smith')
+                ->from('j.ngomnze@gabontelecom.ga')
+                ->to('j.ngomnze@gabontelecom.ga', 'John Smith')
                 ->subject('Welcome!');
         });
 
