@@ -104,7 +104,7 @@ trait AppBaseTrait {
     $attributes_array += [
       'from_index_create' => isset($caller_array[0]::$from_index_create) ? $caller_array[0]::$from_index_create : true,
     ];
-
+    
     return $attributes_array;
   }
 

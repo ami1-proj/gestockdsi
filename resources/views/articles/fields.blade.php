@@ -40,7 +40,7 @@
 
 
         <div class="input-group">
-            <input name="date_livraison" type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose" value="{{ old('date_livraison', $article->date_livraison ?? $nowdate) }}" >
+            <input name="date_livraison" type="text" class="form-control" placeholder="dd-mm-yyyy" id="datepicker-autoclose" value="{{ old('date_livraison', $article->date_livraison ?? $nowdate) }}" >
             <div class="input-group-append bg-custom b-0"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
         </div>
         <small class="text-danger">{{ $errors->has('date_livraison') ? $errors->first('date_livraison') : '' }}</small>

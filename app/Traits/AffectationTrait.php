@@ -14,7 +14,10 @@ use Illuminate\Support\Arr;
 
 
 trait AffectationTrait {
-	public function createNew($objet, $date_affectation, $type_affectation_tag, $elem_id, $liste_article_ids = null) : Affectation {
+
+    use StatutTrait;
+
+	public function createNew($objet, $date_affectation, $type_affectation_tag, $elem_id, $liste_article_ids = null) : ?Affectation {
 		$statut_id_default = Statut::default()->first()->id;
 		$mouvement_default = TypeMouvement::creation()->first();
 		$details_mouvement = "Creation Nouvelle affectation";
@@ -29,25 +32,6 @@ trait AffectationTrait {
 		if (is_null($elem)) {
 			return null;
 		}
-
-		// if ($type_affectation_tag == 'Stock'){
-		// 	// Stock
-		// 	$new_affectation->stock_id = $elem_id;
-		// 	// Recuperation du stock a qui affecter
-		// 	$elem = Stock::find($elem_id);
-		// } elseif ($type_affectation_tag == 'Employe'){
-		// 	// Employe
-		// 	$new_affectation->employe_id=$elem_id;
-		// 	// Recuperation de l employe a qui affecter
-    //   $elem = Employe::find($elem_id);
-		// } elseif ($type_affectation_tag == 'Departement'){
-		// 	// Service
-		// 	$new_affectation->departement_id = $elem_id;
-		// 	// Recuperation du service a qui affecter
-		// 	$elem = Departement::find($elem_id);
-		// } else {
-    //   return null;
-    // }
 
 	   // On complete les donnnees de la nouvelle affectation
 	   $new_affectation->objet = $objet;
@@ -68,54 +52,44 @@ trait AffectationTrait {
 	   return $new_affectation;
 	}
 
-	public function updateOne($affectation_id, $newvalues, $mouvement_id, $details_mouvement, $liste_articles_a_affecter = null, $liste_article_a_retirer = null) : int
+	public function updateOne($affectation_id, $newvalues, $mouvement_id, $details_mouvement, $liste_articles_a_affecter = null) : int
 	{
-			$affectation = Affectation::withCount('affectationarticles')->find($affectation_id);
-			$affectation->fill($newvalues);
-			$affectation->save();
+	    $affectation = Affectation::withCount('affectationarticles')->find($affectation_id);
+	    $affectation->fill($newvalues);
 
-			// Une affectation doit contenir au moins un article
-			if (is_null($liste_articles_a_affecter)) {
-				return -1;
-			}
+	    // Une affectation doit contenir au moins un article
+        if (is_null($liste_articles_a_affecter)) {
+            return -1;
+        }
 
-			$liste_article_a_ajouter = array();
-			foreach ($liste_articles_a_affecter as $id => $reference_complete) {
-				if(Arr::exists($affectation->articles(), $id))
-				{
+        $liste_article_a_ajouter = array();
+        foreach ($liste_articles_a_affecter as $id) {
+            if(! Arr::exists($affectation->articles(), $id))
+            {
+                $liste_article_a_ajouter[] = $id;
+            }
+        }
 
-				} else {
-					$liste_article_a_ajouter[$id] = $reference_complete;
-				}
-			}
+        $liste_article_a_retirer = array();
+        foreach ($affectation->articles() as $id => $article) {
+            if(! Arr::exists($liste_articles_a_affecter, $id))
+            {
+                $liste_article_a_retirer[] = $id;
+            }
+        }
 
-			$liste_article_a_retirer = array();
-			foreach ($affectation->articles() as $id => $article) {
-				if(Arr::exists($liste_articles_a_affecter, $id))
-				{
-
-				} else {
-					$liste_article_a_retirer[$id] = $article->reference_complete;
-				}
-			}
-
-			//dd($affectation->articles(), $liste_articles_a_affecter, $liste_article_a_ajouter, $liste_article_a_retirer);
-
-			// Affectation(s) des articles contenus dans la liste des articles a jouter
- 	   	if (!(is_null($liste_article_a_ajouter))){
+        // Affectation(s) des articles contenus dans la liste des articles à ajouter
+ 	   	if ( ! (is_null($liste_article_a_ajouter)) ){
 				$this->affecterArticles($liste_article_a_ajouter,$affectation_id,$mouvement_id,$details_mouvement);
- 	   	} else {
- 	   		// On ne fait rien
  	   	}
 
-		 	// Désaffectation(s) des articles contenus dans la liste des articles a retirer
-	   	if (!(is_null($liste_article_a_retirer))){
+        // Désaffectation(s) des articles contenus dans la liste des articles à retirer
+	   	if ( ! (is_null($liste_article_a_retirer)) ){
 	   		$this->desaffecterArticles($liste_article_a_retirer,$mouvement_id,$details_mouvement);
-	   	} else {
-	   		// On ne fait rien
 	   	}
 
-			return 1;
+        $affectation->save();
+        return 1;
 	}
 
 	public function deleteOne($affectation_id)
@@ -135,12 +109,10 @@ trait AffectationTrait {
 
 	public function affecterArticles($liste_article_ids,$affectation_id, $mouvement_id, $details_mouvement)
 	{
-		foreach ($liste_article_ids as $id => $reference_complete) {
+		foreach ($liste_article_ids as $id) {
 			$article = Article::find($id);
-			if (is_null($article)) {
-
-			} else {
-				$article->affecter($affectation_id, $mouvement_id, $details_mouvement);
+			if ( ! is_null($article) ) {
+                $article->affecter($affectation_id, $mouvement_id, $details_mouvement);
 			}
 		}
 	}
@@ -149,10 +121,8 @@ trait AffectationTrait {
 	{
 		foreach ($liste_article_ids as $id => $reference_complete) {
 			$article = Article::find($id);
-			if (is_null($article)) {
-
-			} else {
-				$article->desaffecter($mouvement_id, $details_mouvement);
+			if ( ! is_null($article)) {
+                $article->desaffecter($mouvement_id, $details_mouvement);
 			}
 		}
 	}
@@ -206,31 +176,34 @@ trait AffectationTrait {
 	}
 
 	public function formatRequestInput($formInput){
-			// Retrait de l' e-mail et du téléphone du tableau INPUT
-			if (array_key_exists('articles_disponibles', $formInput)) {
-				unset($formInput['articles_disponibles']);
-			}
-			if (array_key_exists('articles_a_affecter', $formInput)) {
-				unset($formInput['articles_a_affecter']);
-			}
-			if (array_key_exists('type_mouvement_id', $formInput)) {
-				unset($formInput['type_mouvement_id']);
-			}
-			if (array_key_exists('details', $formInput)) {
-				unset($formInput['details']);
-			}
-			if (array_key_exists('elem_id', $formInput)) {
-				unset($formInput['elem_id']);
-			}
-			if (array_key_exists('q', $formInput)) {
-				unset($formInput['q']);
-			}
-			if (array_key_exists('action', $formInput)) {
-				unset($formInput['action']);
-			}
+        // Retrait de l' e-mail et du téléphone du tableau INPUT
+        if (array_key_exists('articles_disponibles', $formInput)) {
+            unset($formInput['articles_disponibles']);
+        }
+        if (array_key_exists('articles_a_affecter', $formInput)) {
+            unset($formInput['articles_a_affecter']);
+        }
+        if (array_key_exists('articles', $formInput)) {
+            unset($formInput['articles']);
+        }
+        if (array_key_exists('type_mouvement_id', $formInput)) {
+            unset($formInput['type_mouvement_id']);
+        }
+        if (array_key_exists('details', $formInput)) {
+            unset($formInput['details']);
+        }
+        if (array_key_exists('elem_id', $formInput)) {
+            unset($formInput['elem_id']);
+        }
+        if (array_key_exists('q', $formInput)) {
+            unset($formInput['q']);
+        }
+        if (array_key_exists('action', $formInput)) {
+            unset($formInput['action']);
+        }
 
 
-			return $formInput;
+        return $formInput;
 	}
 
 	public function addRemoveArticles($articles_list_from, $articles_list_to, $articles_list_selected) {

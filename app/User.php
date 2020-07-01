@@ -35,14 +35,7 @@ use App\Traits\RelationshipsTrait;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
-    use HasRoles;
-    use PermissionTrait;
-    use AppBaseTrait;
-    use RecycleBinTrait;
-    use ObservantTrait;
-    use StatutTrait;
-    use RelationshipsTrait;
+    use Notifiable, HasRoles, PermissionTrait, AppBaseTrait, RecycleBinTrait, ObservantTrait, StatutTrait, RelationshipsTrait;
 
     /**
      * The attributes that are mass assignable.

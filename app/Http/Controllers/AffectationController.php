@@ -88,33 +88,23 @@ class AffectationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Affectation  $affectation
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Affectation $affectation)
     {
-        //$type_mouvements = TypeMouvement::nonSystem()->get()->pluck('libelle', 'id');
         $affectation = Affectation::with(['statut','affectationarticles','typeAffectation'])->where('id', $affectation->id)->first();
         $elem_arr = $this->getElemArr($affectation->typeAffectation->tags, $affectation->beneficiaire->id);
 
-        $q = null;
-
-        $articles_disponibles = Article::disponibles()->get()->pluck('reference_complete', 'id')->toArray();
-        $articles_a_affecter = $affectation->articlesNotEnded()->pluck('reference_complete', 'id')->toArray(); //Article::whereIn('id', $articles_a_affecter_ids)->get()->pluck('reference_complete', 'id')->toArray();
+        $articles_disponibles = Article::disponibles()->get()->pluck('reference_complete', 'id');//->toArray();
+        $selectedarticles = $affectation->articles()->pluck('reference_complete', 'id');
 
         $nowdate = Carbon::now();
 
-        $articles_a_affecter_json = json_encode($articles_a_affecter);
-        $articles_disponibles_json = json_encode($articles_disponibles);
-
         return view('affectations.edit')
-          ->with('articles_disponibles', $articles_disponibles)
+          ->with('articles', $articles_disponibles)
+          ->with('selectedarticles', $selectedarticles)
           ->with('elem_arr', $elem_arr)
-          ->with('articles_a_affecter', $articles_a_affecter)
-          ->with('q', $q)
           ->with('nowdate', $nowdate)
-          ->with('articles_a_affecter_json', $articles_a_affecter_json)
-          ->with('articles_disponibles_json', $articles_disponibles_json)
-          //->with('type_mouvements', $type_mouvements)
           ->with('affectation', $affectation)
           ;
     }
@@ -128,102 +118,41 @@ class AffectationController extends Controller
      */
     public function update(Request $request, Affectation $affectation)
     {
-            //$type_mouvements = TypeMouvement::nonSystem()->get()->pluck('libelle', 'id');
-            $type_mouvement = TypeMouvement::modification()->first();//->pluck('libelle', 'id');
-            $request->merge([
-                'type_mouvement_id' => $type_mouvement->id,
-            ]);
+        $type_mouvement = TypeMouvement::modification()->first();//->pluck('libelle', 'id');
+        $request->merge([
+            'type_mouvement_id' => $type_mouvement->id,
+        ]);
 
-            $formInput = $request->all();
-            $nowdate = Carbon::now();
-            $q = $request->has('q') ? $formInput['q'] : '';
+        // Validate the form
+        $request->validate(Affectation::updateRules($affectation));
 
-            //dd('Send the form for update', $request);
+        $formInput = $request->all();
 
-            if ($request->has('articles_a_affecter'))
-              $articles_a_affecter = $formInput['articles_a_affecter'];
-            else
-              $articles_a_affecter = null;
+        /*$liste_article_a_retirer = Article::join("affectation_article","affectation_article.article_id","=","articles.id")
+            ->where("affectation_article.affectation_id", $affectation->id)
+            ->get()
+            ->pluck('article_id')->toArray();*/
 
-            if ($request['action'] == 'valider-affectation') {
-                
-                $validation = Validator::make($formInput, Affectation::updateRules($affectation));
+        $articles_a_affecter = $formInput['articles'];
+        $type_mouvement_id = $type_mouvement->id;//$formInput['type_mouvement_id'];
+        $details = $formInput['details'];
+        //$elem_id = $formInput['elem_id'];
 
-                
-                //dd($validation->fails());
-                if($validation->fails())
-                {
-                   
-                    $results_arr = $this->listArticlesSearch($request, $affectation, '$elem_id', $q);
-                    return view('affectations.edit')
-                        ->with('articles_disponibles', $results_arr['articles_disponibles'])
-                        ->with('articles_a_affecter', $results_arr['articles_a_affecter'])
-                        ->with('articles_disponibles_json', $results_arr['articles_disponibles_json'])
-                        ->with('articles_a_affecter_json', $results_arr['articles_a_affecter_json'])
-                        ->with('elem_arr', $results_arr['elem_arr'])
-                        ->with('q', $q)
-                        ->with('nowdate', $nowdate)
-                        //->with('type_mouvements', $type_mouvements)
-                        ->with('affectation', $affectation)
-                        ->withErrors($validation)
-                      ;
-                }
-                
+        // Retrait des entrees non contenues dans la table affectation
+        $formInput = $this->formatRequestInput($formInput);
 
-            } else {
-              if ($request['action'] == 'search-articles') {
-                  $results_arr = $this->listArticlesSearch($request, $affectation, '$elem_id', $q);
-              } elseif ($request['action'] == 'add-articles') {
-                  $results_arr = $this->listArticlesAdd($request, $affectation, '$elem_id', $q);
-              } elseif($request['action'] == 'remove-articles') {
-                    $results_arr = $this->listArticlesRemove($request, $affectation, '$elem_id', $q);
-              } else {
+        $upd_rst = $this->updateOne($affectation->id, $formInput, $type_mouvement_id, $details, $articles_a_affecter);
 
-              }
+        // Sessions Message
+        if ($upd_rst == 1) {
+          $request->session()->flash('msg_success',__('messages.affectationUpdated', ['affectationtype' => $affectation->typeAffectation->libelle] ));
+        } else {
+          $request->session()->flash('msg_danger',__('messages.affectationCantBeEmpty'));
+        }
 
-              return view('affectations.edit')
-                  ->with('articles_disponibles', $results_arr['articles_disponibles'])
-                  ->with('articles_a_affecter', $results_arr['articles_a_affecter'])
-                  ->with('articles_disponibles_json', $results_arr['articles_disponibles_json'])
-                  ->with('articles_a_affecter_json', $results_arr['articles_a_affecter_json'])
-                  ->with('elem_arr', $results_arr['elem_arr'])
-                  ->with('q', $q)
-                  ->with('nowdate', $nowdate)
-                  //->with('type_mouvements', $type_mouvements)
-                  ->with('affectation', $affectation)
-                ;
-            }
+        $show_controller = $affectation->typeAffectation->tags . 'Controller@' . 'show';
 
-            //dd('Form validated for update', $request);
-
-            $liste_article_a_retirer = Article::join("affectation_article","affectation_article.article_id","=","articles.id")
-                ->where("affectation_article.affectation_id", $affectation->id)
-                ->get()
-                ->pluck('article_id')->toArray();
-
-            $articles_a_affecter = json_decode($formInput['articles_a_affecter'], true);
-
-            $type_mouvement_id = $type_mouvement->id;//$formInput['type_mouvement_id'];
-            $details = $formInput['details'];
-            $elem_id = $formInput['elem_id'];
-
-            //dd($formInput,$articles_a_affecter,$liste_article_a_retirer);
-
-            // Retrait des entrees non contenues dans la table affectation
-            $formInput = $this->formatRequestInput($formInput);
-
-            $upd_rst = $this->updateOne($affectation->id, $formInput, $type_mouvement_id, $details, $articles_a_affecter, $liste_article_a_retirer);
-
-            // Sessions Message
-            if ($upd_rst == 1) {
-              $request->session()->flash('msg_success',__('messages.affectationUpdated', ['affectationtype' => $affectation->typeAffectation->libelle] ));
-            } else {
-              $request->session()->flash('msg_danger',__('messages.affectationCantBeEmpty'));
-            }
-
-            $show_controller = $affectation->typeAffectation->tags . 'Controller@' . 'show';
-
-            return redirect()->action($show_controller, $affectation->beneficiaire->id);
+        return redirect()->action($show_controller, $affectation->beneficiaire->id);
     }
 
     /**
@@ -245,8 +174,52 @@ class AffectationController extends Controller
         return redirect()->action($show_controller, $affectation->beneficiaire->id);
     }
 
-    // Affectations Elem
     public function elemcreate($type_affectation_tag, $elem_id)
+    {
+        $q = null;
+        $type_affectation = TypeAffectation::tagged($type_affectation_tag)->first();
+        $elem_arr = $this->getElemArr($type_affectation_tag, $elem_id);
+        $articles = Article::disponibles()->get()->pluck('reference_complete', 'id')->toArray();
+        $nowdate = Carbon::now();
+        $affectation = $this->getDefaultObject(new Affectation());
+
+        return view('affectations.create')
+            ->with('affectation', $affectation)
+            ->with('articles', $articles)
+            ->with('type_affectation', $type_affectation)
+            ->with('elem_arr', $elem_arr)
+            ->with('nowdate', $nowdate)
+            ;
+    }
+
+    public function elemstore(Request $request, $type_affectation_tag, $elem_id)
+    {
+        // Validate the form
+        $request->validate(Affectation::createRules());
+
+        $type_affectation = TypeAffectation::tagged($type_affectation_tag)->first();
+
+        $formInput = $request->all();
+        $articles_a_affecter = $formInput['articles'];
+
+        $newaffectation = $this->createNew($formInput['objet'], $formInput['date_debut'], $type_affectation_tag, $elem_id ,$articles_a_affecter);
+
+        if (! $newaffectation) {
+            $request->session()->flash('msg_danger',__('messages.erreurInattendue' ));
+            return redirect()->back();
+        }
+
+        // Sessions Message
+        $request->session()->flash('msg_success',__('messages.affectationCreated', ['affectationtype' => $type_affectation->libelle] ));
+
+        $show_controller = 'AffectationController@show';
+
+        return redirect()->action($show_controller, $newaffectation->id);
+
+    }
+
+    // Affectations Elem
+    public function elemcreate_save20200701($type_affectation_tag, $elem_id)
     {
         $q = null;
         $type_affectation = TypeAffectation::tagged($type_affectation_tag)->first();
@@ -270,7 +243,7 @@ class AffectationController extends Controller
           ;
     }
 
-    public function elemstore(Request $request, $type_affectation_tag, $elem_id)
+    public function elemstore_save20200701(Request $request, $type_affectation_tag, $elem_id)
     {
         // Validate the form
         $formInput = $request->all();
@@ -349,9 +322,9 @@ class AffectationController extends Controller
       $division = $departement_infos[1];
       $direction = $departement_infos[2];
 
-      
-      
-      
+
+
+
 
       $output = '
         <img height="60" src="'. $gt_logo_url .'" class="ribbon"/>
@@ -364,7 +337,7 @@ class AffectationController extends Controller
         SI PRODUCTION<br/>
         </p>
         <hr>
-        
+
 
         ';
       foreach($affectation->affectationarticles as $affectationarticle) {
@@ -384,7 +357,7 @@ class AffectationController extends Controller
          <p><strong> Direction: </strong>'.$direction.' </br>
           <p><strong> Division:</strong> '.$division.' </br>
            <p><strong> Service:</strong> '.$service.' </br>
-        
+
         <p><strong> Fonction:&nbsp;</strong>'.$fonction.' </br>
         <p><strong> Numero de télephone : </strong>'.$phone.'</br>
         <hr>
@@ -399,25 +372,25 @@ class AffectationController extends Controller
 
         <p><strong> Date d‘affectation  :</strong></br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
 
-        
-        
+
+
+
         <p><strong> Tecnicien support : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
          Signature Utilisateur :  </strong> </p>
-         
-         
 
 
-        
-        <p><strong> Nom :....................................... </strong></p>                                  
+
+
+
+        <p><strong> Nom :....................................... </strong></p>
         <p><strong> Signature :...............................</strong></p>
 
-        
 
-        
-        
+
+
+
 
           ';
           }
@@ -450,7 +423,7 @@ class AffectationController extends Controller
           } elseif ($temp_dpt->typedepartement->intitule == "Division" || $departement->typedepartement->intitule == "Zone")
           {
             $departement_infos[1] = $temp_dpt->intitule;
-          } else 
+          } else
           {
             $departement_infos[2] = $temp_dpt->intitule;
           }

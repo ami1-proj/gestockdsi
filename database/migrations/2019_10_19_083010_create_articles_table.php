@@ -22,9 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('taille', 100)->nullable()->comment('taille de l article');
 
             $table->string('reference_complete')->nullable()->comment('référence complète de l article');
-
             $table->string('model')->comment('model de l article');
-            
 
             $table->dateTime('date_livraison')->comment('date livraison de l article');
 
@@ -41,6 +39,9 @@ class CreateArticlesTable extends Migration
             $table->foreign('etat_article_id')->references('id')->on('etat_articles')->onDelete('set null');
 
             $table->unsignedBigInteger('affectation_id')->nullable()->comment('id de l affectation actuelle de l article');
+
+            $table->integer('periodicite_maintenance')->default(0)->comment('nombre de jours avant prochaine maintenance');
+            $table->integer('periodicite_renouvellement')->default(0)->comment('nombre de jours avant prochaine renouvellement');
 
             $table->unsignedBigInteger('statut_id')->nullable()->comment('reference du statut');
             $table->foreign('statut_id')->references('id')->on('statuts')->onDelete('set null');

@@ -15,6 +15,9 @@ trait ArticleTrait {
   public function formatRequestInput($request){
       $formInput = $request->all();
       $formInput = $this->setStatutFromRequestInput($formInput);
+      //dd($formInput);
+      $formInput['date_livraison'] = str_replace("/", "-", $formInput['date_livraison']);
+      //dd($formInput['date_livraison']);
       $formInput['date_livraison'] = Carbon::parse($formInput['date_livraison']);
 
       return $formInput;

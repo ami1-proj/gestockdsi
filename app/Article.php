@@ -4,7 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
+/**
+ * Class Article
+ * @package App
+ *
+ * @property integer $id
+ * @property string $reference
+ * @property string $taille
+ * @property string $reference_complete
+ * @property string $model
+ * @property \Illuminate\Support\Carbon $date_livraison
+ * @property integer|null $type_article_id
+ * @property integer|null $fournisseur_id
+ * @property integer|null $marque_article_id
+ * @property integer|null $etat_article_id
+ * @property integer|null $affectation_id
+ * @property integer $periodicite_maintenance
+ * @property integer $periodicite_renouvellement
+ * @property string|null $tags
+ * @property string $statut_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class Article extends AppBaseModel
 {
     use SoftDeletes;
@@ -140,10 +161,10 @@ class Article extends AppBaseModel
     *
     * @return string
     */
-    public function getReferenceCompleteAttribute()
+    /*public function getReferenceCompleteAttribute()
     {
         return "{$this->typeArticle->libelle} - {$this->marqueArticle->nom} - {$this->id} - {$this->reference}";
-    }
+    }*/
 
     /**
      * Renvoie le Statut de l'Article.
@@ -270,6 +291,41 @@ class Article extends AppBaseModel
           }
         }
         return $affectation_article_old;
+    }
+
+    private function setReferenceComplete() {
+        if (empty($this->reference_complete)) {
+            $this->reference_complete = "{$this->typeArticle->libelle} - {$this->marqueArticle->nom} - {$this->reference}";
+        }
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::creating(function($model){
+            $model->setReferenceComplete();
+        });
+
+        self::created(function($model){
+            // ... code here
+        });
+
+        self::updating(function($model){
+            $model->setReferenceComplete();
+        });
+
+        self::updated(function($model){
+            // ... code here
+        });
+
+        self::deleting(function($model){
+            // ... code here
+        });
+
+        self::deleted(function($model){
+            // ... code here
+        });
     }
 
 }

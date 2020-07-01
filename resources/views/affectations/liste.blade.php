@@ -16,7 +16,7 @@
                 <td class="block" style="width:50%">
                   <select class="select2 form-control" name="articles_disponibles[]" multiple="multiple" id="articles_disponibles">
                       @forelse ($affectation->affectationarticles as $affectationarticle)
-                        @if($affectationarticle->date_fin)
+                          @if($affectationarticle->date_fin)
                         @else
                           <option><small class="font-weight-light">{{ $affectationarticle->article->reference_complete }}</small></option>
                         @endif

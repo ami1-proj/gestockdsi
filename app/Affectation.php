@@ -75,7 +75,7 @@ class Affectation extends AppBaseModel
 
     public static function defaultRules() {
       return [
-        'articles_a_affecter' => ['required'],
+        'articles' => ['required'],
         'date_debut' => ['required','date'],
       ];
     }
@@ -159,7 +159,7 @@ class Affectation extends AppBaseModel
         return $this->belongsTo('App\TypeAffectation');
     }
 
-		public function affectationarticles() {
+    public function affectationarticles() {
         return $this->hasMany('App\AffectationArticle')
           ->orderBy('id')
 					// ->whereNull('date_fin')

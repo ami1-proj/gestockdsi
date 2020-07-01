@@ -140,6 +140,7 @@
     Route::post('affectations/{type_affectation_tag}/{elem_id}/', 'AffectationController@elemstore')->name('affectations.elemstore')->middleware('auth');
 
     Route::get('affectations/{affectation}/printpreview', 'AffectationController@printpreview')->name('affectations.printpreview')->middleware('auth');
+    Route::get('/selectmorearticles', 'ArticleController@selectmorearticles')->middleware('auth');
 
     /**
      * Parametres

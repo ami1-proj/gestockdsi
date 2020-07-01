@@ -23,12 +23,13 @@
         // Date Picker
         jQuery('#datepicker').datepicker();
         jQuery('#datepicker-autoclose').datepicker({
+            format: "dd-mm-yyyy",
             autoclose: true,
             todayHighlight: true
         });
         jQuery('#datepicker-inline').datepicker();
         jQuery('#datepicker-multiple-date').datepicker({
-            format: "dd/mm/yyyy",
+            format: "dd-mm-yyyy",
             clearBtn: true,
             multidate: true,
             multidateSeparator: ","

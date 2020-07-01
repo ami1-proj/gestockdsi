@@ -6,7 +6,7 @@
 
   class DynamicPDFController extends Controller {
 
-    functionindex() {
+    function index() {
       $customer_data = $this->get_customer_data();
       return view('dynamic_pdf')->with('customer_data', $customer_data);
     }
@@ -35,14 +35,14 @@
         <th style="border: 1px solid; padding:12px;" width="15%">Telepon</th>
         </tr>';
       foreach($customer_data as $customer) {
-        $output . = '
+        $output = $output . '
           <tr>
           <td style="border: 1px solid; padding:12px;">'.$customer->Nama.'</td>
           <td style="border: 1px solid; padding:12px;">'.$customer->Alamat.'</td>
           <td style="border: 1px solid; padding:12px;">'.$customer->Telepon.'</td>
           </tr>';
         }
-        $output . ='</table>';
+        $output = $output . '</table>';
         return $output;
     }
 

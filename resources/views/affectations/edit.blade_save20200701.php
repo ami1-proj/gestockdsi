@@ -8,8 +8,8 @@
   {{ Breadcrumbs::render($elem_arr['breadcrumb_edit'],$elem_arr['elem']->id,$affectation) }}
 @endsection
 
-@section('css')
-    @include('affectations.articles_css')
+@section('more_css')
+    @include('roles.articles_css')
 @endsection
 
 @section('content')
@@ -29,19 +29,19 @@
           <form action="{{ route('affectations.update', [$affectation->id]) }}" method="POST">
           @method('PUT')
 
-          @include('affectations.fields')
-          @include('affectations.articles_control')
+          <div class="row">
+
+            @include('affectations.fields')
+
+          </div>
 
           @csrf
 
           <div class="form-group row">
-              <div>
-                  @can(App\Affectation::canedit())
-                      <button type="submit" class="btn btn-primary waves-effect waves-light">Valider</button>
-                  @endcan
-                  <button type="reset" class="btn btn-success waves-effect waves-light">Reset</button>
-                  <a href="{{ route('affectations.index') }}" class="btn btn-secondary waves-effect m-l-5">Annuler</a>
-              </div>
+            <div class="col-sm-3">
+              <button name="action" value="valider-affectation" type="submit" class="btn btn-primary">Valider</button>
+              <a href="{{ action($elem_arr['showController'], [$elem_arr['elem']->id]) }}" class="btn btn-secondary">Annuler</a>
+            </div>
           </div>
 
           <input type="hidden" name="elem_id" value="{{$elem_arr['elem']->id}}"/>
@@ -56,5 +56,19 @@
 @endsection
 
 @section('js')
-    @include('affectations.articles_js')
+<script type="text/javascript">
+
+  function stopRKey(evt) {
+  var evt = (evt) ? evt : ((event) ? event : null);
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+  if ((evt.keyCode == 13) && (node.type=="text" || node.type=="search"))  {return false;}
+  }
+
+  document.onkeypress = stopRKey;
+
+</script>
+@endsection
+
+@section('more_js')
+    @include('roles.articles_js')
 @endsection

@@ -137,7 +137,7 @@ Breadcrumbs::for('articles.create', function ($trail) {
 Breadcrumbs::for('articles.show', function ($trail, $id) {
     $article = Article::findOrFail($id);
     $trail->parent('articles');
-    $trail->push($article->referenceComplete, route('articles.show', $article));
+    $trail->push($article->reference_complete, route('articles.show', $article));
 });
 
 // Home > Articles > [Article] > Modification

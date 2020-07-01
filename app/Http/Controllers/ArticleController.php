@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Affectation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
@@ -223,5 +224,33 @@ class ArticleController extends Controller
         //dd($formInput);
 
         return redirect()->action('ArticleController@affectation', [$situation_id, $elem_id]);
+    }
+
+    public function selectmorearticles(Request $request)
+    {
+        $search = $request->get('search');
+        $affectationid = $request->get('affectationid');
+
+        if (! $affectationid) {
+            $data = Article::disponibles()
+                ->select(['id', 'reference_complete'])
+                ->where('reference_complete', 'like', '%' . $search . '%')
+                ->orderBy('reference_complete')->paginate(5);
+        } else {
+            $affectation = Affectation::where('id',$affectationid)->first();
+            $articles_affectation_ids = $affectation->articles()->pluck('id', 'id')->toArray();
+            $articles_affectation = Article::select(['id', 'reference_complete'])
+                ->whereIn('id', $articles_affectation_ids)
+                ->where('reference_complete', 'like', '%' . $search . '%')
+                ->orderBy('reference_complete');
+
+            $data = Article::disponibles()
+                ->select(['id', 'reference_complete'])
+                ->where('reference_complete', 'like', '%' . $search . '%')
+                ->union($articles_affectation)
+                ->orderBy('reference_complete')->paginate(5);
+        }
+
+        return response()->json(['items' => $data->toArray()['data'], 'pagination' => $data->nextPageUrl() ? true : false]);
     }
 }
