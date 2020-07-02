@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'j.ngomnze@gabontelecom.ga'),
-        'name' => env('MAIL_FROM_NAME','GestockDSI'),
+        'address' => env('MAIL_FROM_ADDRESS', 'gestockdsi@gabontelecom.ga'),
+        'name' => env('MAIL_FROM_NAME','Gestock-DSI'),
     ],
 
     /*

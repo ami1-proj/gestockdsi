@@ -198,8 +198,8 @@ return [
                 |
                 */
 
-                'username' => env('LDAP_USERNAME', 'jngom@gabontelecom.ga'),
-                'password' => env('LDAP_PASSWORD', 'P@rfait1283'),
+                'username' => env('LDAP_USERNAME', 'gestockdsi@gabontelecom.ga'),
+                'password' => env('LDAP_PASSWORD', 'Libertis123'),
 
                 /*
                 |--------------------------------------------------------------------------

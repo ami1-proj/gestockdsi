@@ -23,8 +23,8 @@ return [
     'ldap_domain' => env('LDAP_DOMAIN', '@gabontelecom.ga'),
     'ldap_base_dn' => env('LDAP_BASE_DN', 'DC=gabontelecom,DC=ga'),
     'ldap_tree' => env('LDAP_TREE', 'DC=gabontelecom,DC=ga'),
-    'ldap_base_user' => env('LDAP_BASE_USER', 'jngom'),
-    'ldap_base_userpwd' => env('LDAP_BASE_USERPWD', 'P@rfait1283'),
+    'ldap_base_user' => env('LDAP_BASE_USER', 'gestockdsi'),
+    'ldap_base_userpwd' => env('LDAP_BASE_USERPWD', 'Libertis123'),
 
 
     /*
