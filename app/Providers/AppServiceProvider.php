@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\AppBaseModel;
 use App\Observers\AppBaseModelObserver;
 use App\Article;
+use App\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Article::observe(AppBaseModelObserver::class);
+        /**
+         * tell Laravel that, when the App boots,
+         * which is after all other Services are already registered,
+         * we are gonna add to the config array our own settings
+         */
+        config([
+            'settings' => Setting::getAllGrouped()
+        ]);
     }
 }

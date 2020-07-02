@@ -40,7 +40,7 @@ class ArticleSetEtat extends Command
     public function handle()
     {
         $etatarticle_ancien = EtatArticle::tagged('Ancien')->first();
-        $duree_jrs_min_article_neuf = 10;
+        $duree_jrs_min_article_neuf = config('settings.article.nb_jrs_article_neuf');;
 
         \Log::info("Cron en cours de traitement...");
 

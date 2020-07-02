@@ -244,7 +244,7 @@ trait LdapImportTrait {
      * @return string
      */
     private function formatDepartementIntitule(string $intitule) {
-        $sigles = ['gt','rh','si','it','sav','in','bss','msan','rva','erp','dr'];
+        $sigles = config('settings.ldap.liste_sigles');
         $intitule_tab = explode(' ', $intitule);
 
         for ($i = 0; $i < count($intitule_tab); $i++) {
