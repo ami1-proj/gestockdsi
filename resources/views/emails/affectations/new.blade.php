@@ -20,10 +20,6 @@
     @endforeach
 @endcomponent
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
 Cordialement,<br>
 {{ config('app.name') }}
 @endcomponent

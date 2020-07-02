@@ -56,7 +56,7 @@
 
                 </div>
               </div>
-            </div>  
+            </div>
 
             <div class="col-lg-6">
               <div class="card m-b-30">
@@ -109,9 +109,17 @@
             <div class="col-sm-3">
               <a href="{{ action('AffectationController@pdf', $affectation) }}" class="btn btn-primary">
                 <i class="fa fa-print"></i>
-                Imprimer
+                 Fiche Affectation
               </a>
             </div>
+            @endcan
+            @can(\App\Affectation::canprint())
+                <div class="col-sm-3">
+                    <a href="{{ action('AffectationController@ficheretour', $affectation) }}" class="btn btn-success">
+                        <i class="fa fa-sticky-note"></i>
+                        Fiche de Retour
+                    </a>
+                </div>
             @endcan
           </div>
 

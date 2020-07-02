@@ -27,6 +27,8 @@ class CreateAffectationsTable extends Migration
             $table->foreign('type_affectation_id')->references('id')->on('type_affectations')->onDelete('set null');
 
             $table->unsignedBigInteger('beneficiaire_id')->nullable()->comment('reference du beneficiare de l affectation');
+            $table->string('fiche_retour')->nullable()->comment('Fiche retour de l affectation');
+            $table->integer('fiche_retour_taille')->nullable()->comment('Taille de la fiche retour de l affectation');
 
             $table->unsignedBigInteger('statut_id')->nullable()->comment('reference du statut');
             $table->foreign('statut_id')->references('id')->on('statuts')->onDelete('set null');

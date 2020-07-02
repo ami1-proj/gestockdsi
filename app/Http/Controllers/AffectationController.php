@@ -212,6 +212,10 @@ class AffectationController extends Controller
         // Sessions Message
         $request->session()->flash('msg_success',__('messages.affectationCreated', ['affectationtype' => $type_affectation->libelle] ));
 
+        //notifierBeneficiaire
+        $newaffectation->notifierBeneficiaire();
+        $newaffectation->notifierAdminFoncs();
+
         $show_controller = 'AffectationController@show';
 
         return redirect()->action($show_controller, $newaffectation->id);
@@ -406,7 +410,6 @@ class AffectationController extends Controller
       return $pdf->stream();
     }
 
-
     private function getDepartementInfos($departement) {
 
       // le tableau de retour ( 0=service ou agence; 1=division ou zone; 2=direction)
@@ -435,6 +438,66 @@ class AffectationController extends Controller
 
       }
       return $departement_infos;
+  }
+
+  public function ficheretour($affectation_id) {
+
+      $affectation = Affectation::find($affectation_id);
+
+      $elem_arr = $this->getElemArr($affectation->typeAffectation->tags, $affectation->beneficiaire->id);
+
+      return view('affectations.ficheretour')
+          ->with('affectation', $affectation)
+          ->with('elem_arr', $elem_arr);
+  }
+
+  public function addFicheretour(Request $request, $affectation_id) {
+      // Validate the form
+      $request->validate(Affectation::ficheRetourRules());
+      $fieldname = "fiche_retour";
+      $affectation = Affectation::find($affectation_id);
+      //dd($request, $affectation, $request->files->get($fieldname));
+      if( $request->hasFile( $fieldname ) ) {
+
+          if (!$request->file($fieldname)->isValid()) {
+
+              flash('Invalid File!')->error()->important();
+
+              return redirect()->back()->withInput();
+          }
+
+          $file_dir = config('app.affectationficheretour_filefolder');
+
+          // Check if the old file exists inside folder
+          if ($affectation->fiche_retour) {
+              if (file_exists($file_dir . '/' . $affectation->fiche_retour)) {
+                  unlink($file_dir . '/' . $affectation->fiche_retour);
+              }
+          }
+
+          // Set image name
+          $file = $request->files->get($fieldname);
+          $file_name = md5($file_dir . '_' . time()) . '.' . $file->getClientOriginalExtension();
+
+          //dd($request, $file, $file_name, $file->getSize());
+
+          // Move image to folder
+          $file->move($file_dir, $file_name);
+          $affectation->fiche_retour = $file_name;
+          $affectation->fiche_retour_taille = $file->getSize();
+          $affectation->save();
+
+          // Sessions Message
+          $request->session()->flash('msg_success',__('messages.affectationFicheRetourCreated' ));
+
+          return redirect()->action('AffectationController@ficheretour', $affectation->id);
+
+      } else {
+
+          flash('Request has not File!')->error()->important();
+          return redirect()->back()->withInput();
+      }
+
   }
 
 

@@ -26,14 +26,18 @@ class Setting extends Model
     public static function getAllGrouped() {
         $final_array = [];
 
-        $collection = Setting::all()->groupBy('group');
+        try {
+            $collection = Setting::all()->groupBy('group');
 
-        foreach ($collection as $group => $coll) {
-            foreach ($coll as $sett) {
-                $final_array[$group][$sett->name] = self::getParsedValue($sett);
+            foreach ($collection as $group => $coll) {
+                foreach ($coll as $sett) {
+                    $final_array[$group][$sett->name] = self::getParsedValue($sett);
+                }
             }
+            return $final_array;
+        } catch (\Exception $e) {
+            return [];
         }
-        return $final_array;
     }
 
     private static function getParsedValue(Setting $setting) {

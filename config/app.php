@@ -17,6 +17,7 @@ return [
 
 
     'typearticle_filefolder' => env('FILE_FOLDER_TYPEARTICLE', 'uploads/typearticle'),
+    'affectationficheretour_filefolder' => env('FILE_FOLDER_AFFECTATIONFICHERETOUR', 'uploads/affectations/fichesretour'),
 
     'ldap_host' => env('LDAP_HOST', '192.168.5.228'),
     'ldap_port' => env('LDAP_PORT', '389'),

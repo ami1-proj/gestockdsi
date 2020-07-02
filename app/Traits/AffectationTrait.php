@@ -140,34 +140,7 @@ trait AffectationTrait {
 			$elem_arr['breadcrumb_create'] = $type_affectation->object_class_name::$title_plu . '.affectation.create';
 			$elem_arr['breadcrumb_edit'] = $type_affectation->object_class_name::$title_plu . '.affectation.edit';
 			$elem_arr['breadcrumb_show'] = $type_affectation->object_class_name::$title_plu . '.affectation.show';
-
-			// if ($type_affectation_tag == 'Stock'){
-			// 	// Stock
-			// 	$elem_arr['elem'] = Stock::find($elem_id);
-			// 	$elem_arr['article'] = 'au';
-			// 	$elem_arr['showController'] = 'StockController@show';
-			// 	$elem_arr['breadcrumb_create'] = 'stocks.affectation.create';
-			// 	$elem_arr['breadcrumb_edit'] = 'stocks.affectation.edit';
-			// 	$elem_arr['breadcrumb_show'] = 'stocks.affectation.show';
-			// } elseif ($type_affectation_tag == 'Employe'){
-			// 	// Employe
-			// 	$elem_arr['elem'] = Employe::find($elem_id);
-			// 	$elem_arr['article'] = 'a l';
-			// 	$elem_arr['showController'] = 'EmployeController@show';
-			// 	$elem_arr['breadcrumb_create'] = 'employes.affectation.create';
-			// 	$elem_arr['breadcrumb_edit'] = 'employes.affectation.edit';
-			// 	$elem_arr['breadcrumb_show'] = 'employes.affectation.show';
-			// } elseif ($type_affectation_tag == 'Departement'){
-			// 	// Service
-			// 	$elem_arr['elem'] = Departement::find($elem_id);
-			// 	$elem_arr['article'] = 'au';
-			// 	$elem_arr['showController'] = 'DepartementController@show';
-			// 	$elem_arr['breadcrumb_create'] = 'departements.affectation.create';
-			// 	$elem_arr['breadcrumb_edit'] = 'departements.affectation.edit';
-			// 	$elem_arr['breadcrumb_show'] = 'departements.affectation.show';
-			// } else {
-			// 	return null;
-			// }
+			$elem_arr['breadcrumb_ficheretour'] = $type_affectation->object_class_name::$title_plu . '.affectation.ficheretour';
 
 			$elem_arr['breadcrumb_param'] = $elem_arr['elem']->id;
 			$elem_arr['type'] = class_basename($elem_arr['elem']);

@@ -31,16 +31,6 @@
 
         dd("Email is Sent.");
 
-
-        /*$beautymail = app()->make(Snowfire\Beautymail\Beautymail::class);
-        $beautymail->send('emails.affectations.new', [], function($message)
-        {
-            $message
-                ->from('j.ngomnze@gabontelecom.ga')
-                ->to('j.ngomnze@gabontelecom.ga', 'John Smith')
-                ->subject('Welcome!');
-        });*/
-
     });
 
     Route::get('/tests', function () {
@@ -136,6 +126,9 @@
     Route::resource('affectations', 'AffectationController')->middleware('auth');
 
     Route::get('affectations/{affectation}/pdf', 'AffectationController@pdf')->name('affectations.pdf')->middleware('auth');
+    Route::get('affectations/{affectation}/ficheretour', 'AffectationController@ficheretour')->name('affectations.ficheretour')->middleware('auth');
+    Route::post('affectations/{affectation}/ficheretour', 'AffectationController@addFicheretour')->name('affectations.ficheretour')->middleware('auth');
+
     Route::get('affectations/{type_affectation_tag}/{elem_id}/', 'AffectationController@elemcreate')->name('affectations.elemcreate')->middleware('auth');
     Route::post('affectations/{type_affectation_tag}/{elem_id}/', 'AffectationController@elemstore')->name('affectations.elemstore')->middleware('auth');
 

@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App\Mail\AffectationNew;
+use App\Mail\AffectationNewToAdmins;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class Affectation
@@ -14,6 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $date_fin
  * @property integer|null $type_affectation_id
  * @property integer|null $beneficiaire_id
+ * @property string|null $fiche_retour
+ * @property integer|null $fiche_retour_taille
  * @property integer|null $statut_id
  * @property string|null $tags
  * @property \Illuminate\Support\Carbon $created_at
@@ -91,6 +96,14 @@ class Affectation extends AppBaseModel
           'details' => ['required'],
       ]);
     }
+    public static function ficheRetourRules() {
+        return [
+            'fiche_retour' => [
+                'required',
+                'mimes:pdf',
+            ],
+        ];
+    }
     public static function validationMessages() {
       return [];
     }
@@ -104,46 +117,6 @@ class Affectation extends AppBaseModel
         ->where('objet', 'LIKE', "%{$q}%")
         ->orWhereIn('statut_id', $statuts);
     }
-
-    // public function searchByElem($query, $q) {
-    //   if ($q == null) return $query;
-    //
-		// 	if ($this->typeAffectation->tags == 'Stock') {
-    //     // Stock
-    //     $elems = Stock::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('stock_id', $elems);
-    //   } elseif ($this->typeAffectation->tags == 'Employe'){
-    //     // Employe
-		// 		$elems = Employe::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('employe_id', $elems);
-    //   } elseif ($this->typeAffectation->tags == 'Departement'){
-    //     // Service
-		// 		$elems = Departement::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('departement_id', $elems);
-    //   } else {
-    //     return $query;
-    //   }
-    // }
-    //
-		// public function searchByElem_old($query, $q) {
-    //   if ($q == null) return $query;
-    //
-		// 	if ($this->typeAffectation->tags == 'Stock') {
-    //     // Stock
-    //     $elems = Stock::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('stock_id', $elems);
-    //   } elseif ($this->typeAffectation->tags == 'Employe'){
-    //     // Employe
-		// 		$elems = Employe::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('employe_id', $elems);
-    //   } elseif ($this->typeAffectation->tags == 'Departement'){
-    //     // Service
-		// 		$elems = Departement::search($q)->get()->pluck('id')->toArray();
-		// 		return $query->orWhereIn('departement_id', $elems);
-    //   } else {
-    //     return $query;
-    //   }
-    // }
 
     /**
      * Renvoie le Statut de l affectation.
@@ -192,8 +165,6 @@ class Affectation extends AppBaseModel
       return \Illuminate\Database\Eloquent\Collection::make($articles);
     }
 
-
-
     public function beneficiaire() {
       if (is_null($this->typeAffectation)) {
         return null;
@@ -204,9 +175,31 @@ class Affectation extends AppBaseModel
       }
     }
 
-		public function terminer()
+    public function terminer()
     {
         $this->date_fin = now();
         $this->save();
+    }
+
+    public function notifierBeneficiaire() {
+        if(config('settings.affectation.notifier_beneficiaire')) {
+            $email = $this->beneficiaire()->adresseemails->first();
+            if ($email) {
+                Mail::to($email)
+                    ->queue(new AffectationNew($this));
+            }
+        }
+    }
+
+    public function notifierAdminFoncs() {
+        if(config('settings.affectation.notifier_adminfonc')) {
+            $admins_emails = config('settings.affectation.adminfonc_a_notifier');
+            foreach ($admins_emails as $admin_email) {
+                if ($admins_emails) {
+                    Mail::to($admins_emails)
+                        ->queue(new AffectationNewToAdmins($this));
+                }
+            }
+        }
     }
 }

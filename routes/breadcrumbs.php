@@ -213,6 +213,12 @@ Breadcrumbs::for('employes.affectation.show', function ($trail, $emp_id, $aff_id
     $trail->push('Détails Affectation: ' . $aff->objet, route('affectations.show', $aff_id));
 });
 
+// Home > Employes > [Employe] > Détails Affectation > Fiche Retour
+Breadcrumbs::for('employes.affectation.ficheretour', function ($trail, $emp_id, $aff_id) {
+    $trail->parent('employes.affectation.show', $emp_id, $aff_id);
+    $trail->push('Fiche Retour', route('affectations.ficheretour', $aff_id));
+});
+
 
 /**
  * [Breadcrumbs Departements]
@@ -252,17 +258,23 @@ Breadcrumbs::for('departements.affectation.create', function ($trail, $id) {
 });
 
 // Home > Departements > [Departement] > Modification Affectation
-Breadcrumbs::for('departements.affectation.edit', function ($trail, $emp_id, $aff_id) {
+Breadcrumbs::for('departements.affectation.edit', function ($trail, $dep_id, $aff_id) {
     $aff = Affectation::findOrFail($aff_id);
-    $trail->parent('departements.show', $emp_id);
+    $trail->parent('departements.show', $dep_id);
     $trail->push('Modification Affectation', route('affectations.edit', $aff_id));
 });
 
 // Home > Departements > [Departement] > Détails Affectation
-Breadcrumbs::for('departements.affectation.show', function ($trail, $emp_id, $aff_id) {
+Breadcrumbs::for('departements.affectation.show', function ($trail, $dep_id, $aff_id) {
     $aff = Affectation::findOrFail($aff_id);
-    $trail->parent('departements.show', $emp_id);
+    $trail->parent('departements.show', $dep_id);
     $trail->push('Détails Affectation: ' . $aff->objet, route('affectations.show', $aff_id));
+});
+
+// Home > Departements > [Departement] > Détails Affectation > Fiche Retour
+Breadcrumbs::for('departements.affectation.ficheretour', function ($trail, $dep_id, $aff_id) {
+    $trail->parent('departements.affectation.show', $dep_id, $aff_id);
+    $trail->push('Fiche Retour', route('affectations.ficheretour', $aff_id));
 });
 
 

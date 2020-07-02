@@ -44,7 +44,7 @@
     <div class="col-md-6">
         <div class="card m-b-30 card-body">
             <h3 class="card-title font-20 mt-0">Affecter article(s) a un Employe</h3>
-            <p class="card-text">Ici vous avez la possibilé d'affecter un ou plusieurs articles a un employe.<br />A partir de liste de départements, rechercher le département a affecter et clicker sur <i class="fa fa-paperclip" style="color:green"></i> pour effectuer l'affectations</p>
+            <p class="card-text">Ici vous avez la possibilé d'affecter un ou plusieurs articles a un employe.<br />A partir de liste des employés, rechercher l’employé a affecter et clicker sur <i class="fa fa-paperclip" style="color:green"></i> pour effectuer l'affectation</p>
             <a href="{{ route('employes.index') }}" class="btn btn-primary waves-effect waves-light">Cliquez ici</a>
           </div>
     </div>
