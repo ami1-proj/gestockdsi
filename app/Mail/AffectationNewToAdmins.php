@@ -37,6 +37,7 @@ class AffectationNewToAdmins extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.affectations.newtoadmins');
+        return $this->subject('Affectation Matériels Informatique')
+            ->markdown('emails.affectations.newtoadmins');
     }
 }
